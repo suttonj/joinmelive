@@ -1,7 +1,8 @@
 # joinmelive
 
-npm i -g webpack webpack-dev-server
-npm i
-npm start
+## installation
+1. npm i -g webpack webpack-dev-server
+2. npm i
+3. npm start
 
-go to http://localhost:3000
+http://localhost:3000
