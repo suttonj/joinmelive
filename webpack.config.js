@@ -1,20 +1,17 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
-    './src/index.js'
-  ],
+  entry: {
+    devServerClient: 'webpack-dev-server/client?http://localhost:3000',
+    bundle: ['./src/index.js', 'webpack/hot/only-dev-server'],
+    vendors: ['react'],
+  },
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'react-hot!babel'
-    }, {
-      test: /\.css$/,
-      loader: 'style!css!autoprefixer?browsers=last 2 versions'
-    }]
+    loaders: [
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'react-hot!babel' },
+      { test: /\.css$/, loader: 'style!css!autoprefixer?browsers=last 2 versions' },
+      { test: require.resolve('react'), loader: 'expose?React' },
+    ],
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -22,13 +19,15 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   devServer: {
     contentBase: './dist',
     hot: true
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ]
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+  ],
 };
