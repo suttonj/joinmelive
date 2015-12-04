@@ -1,0 +1,20 @@
+{
+  "name": "joinmelive",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suttonj/joinmelive.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/suttonj/joinmelive/issues"
+  },
+  "homepage": "https://github.com/suttonj/joinmelive#readme"
+}
