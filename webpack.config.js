@@ -30,4 +30,6 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
   ],
+  devtool: 'sourcemap',
+  debug: true,
 };
