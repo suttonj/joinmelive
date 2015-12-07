@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import InfiniteList from './Infinite';
-import TrendTweets from './TrendTweets';
-import Trending from './Trending';
+import InfiniteList from './Landing/Infinite';
+import TrendTweets from './Landing/TrendTweets';
+import Trending from './Landing/Trending';
 
 export default class App extends Component {
     render() {

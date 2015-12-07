@@ -4,12 +4,12 @@ import Router, { Route } from 'react-router';
 
 import App from './App';
 import LandingPage from './components/LandingPage';
-import DrillDownPage from './components/DrillDownPage';
+import ExplorePage from './components/ExplorePage';
 
 const routes = (
     <Route component={App}>
         <Route path="/" component={LandingPage} />
-        <Route path="/drilldown" component={DrillDownPage} />
+        <Route path="/explore" component={ExplorePage} />
     </Route>
 );
 
