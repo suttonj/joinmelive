@@ -1,16 +1,19 @@
 import React, { Component, PropTypes } from 'react';
+import { Accordion, AccordionItem } from 'react-sanfona';
 
 import MenuCategory from './MenuCategory';
 
 export default class Menu extends Component {
     render() {
-        const categories = this.props.categories.map((category, i) => 
-            <MenuCategory key={i} category={category} />);
-
         return (
             <div style={this.props.style}>
-                <div>Nav Menu</div>
-                {categories}
+                <Accordion>
+                    {this.props.categories.map(category => 
+                    <AccordionItem title={category.name} key={category.name}>
+                        {category.subCategories.map(name => <div>{name}</div>)}
+                    </AccordionItem>
+                    )}
+                </Accordion>
             </div>
         );
     }
