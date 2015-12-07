@@ -4,7 +4,15 @@ import { connect } from 'react-redux';
 import Menu from './Explore/Menu';
 import Main from './Explore/Main';
 
+import { getCategories }  from '../actions';
+
 export class ExplorePage extends Component {
+    constructor(props) {
+        super(props);
+
+        this.props.dispatch(getCategories());
+    }
+
     render() {
         return (
             <div style={{display: 'flex',height:'100%'}}>
