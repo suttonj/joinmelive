@@ -20,7 +20,8 @@ export class ExplorePage extends Component {
                 <Menu 
                     style={{flexGrow:1,border:'1px solid red'}}
                     categories={this.props.categories}
-                    selectCategory={ categoryId => this.props.selectCategory(categoryId) } />
+                    selectedCategoryId={this.props.filters.categoryId}
+                    selectCategory={this.props.selectCategory} />
                 <div style={{flexGrow:4,flexBasis:0,display:'flex',flexDirection:'column'}}>
                     <div style={{border:'1px solid green'}}>
                         <input type="text" placeholder="Search" />

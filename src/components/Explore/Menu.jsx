@@ -1,20 +1,27 @@
 import React, { Component, PropTypes } from 'react';
-import { Accordion, AccordionItem } from 'react-sanfona';
+import MenuItem from './MenuItem';
 
 export default class Menu extends Component {
+    constructor(props) {
+        super(props);
+
+        this.onClickParentCategory = this.onClickParentCategory.bind(this);        
+    }
+
+    onClickParentCategory(id) {
+        this.props.selectCategory(id);
+
+    }
+
     render() {
         return (
             <div style={this.props.style}>
-                <Accordion>
-                    {this.props.categories.map(category => 
-                    <AccordionItem
-                        key={category.name} 
-                        title={category.name}
-                        onClick={this.props.selectCategory(category.id)}>
-                        {category.subCategories.map(subCategory => <div>{subCategory.name}</div>)}
-                    </AccordionItem>
-                    )}
-                </Accordion>
+            {this.props.categories.map(category => 
+                <MenuItem
+                    { ...category }
+                    isOpen={category.id === this.props.selectedCategoryId}
+                    onClick={ categoryId => this.props.selectCategory(categoryId) } />
+            )}
             </div>
         );
     }
@@ -30,5 +37,6 @@ Menu.propTypes = {
             name: PropTypes.string.isRequired,
         })).isRequired,
     })).isRequired,
+    selectedCategoryId: PropTypes.number.isRequired,
     selectCategory: PropTypes.func.isRequired,
 };

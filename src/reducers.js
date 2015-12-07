@@ -38,6 +38,7 @@ function discussions(state=[], action) {
 }
 
 export default combineReducers({
+    filters,
     categories,
     discussions,
 });
