@@ -3,6 +3,14 @@ import Tweets from './Tweets';
 
 const apiUrl = 'http://localhost:8080/';
 
+const styles = {
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        width: 200
+    }
+};
+
 export default class Trending extends Component {
 	
 	constructor(props) {
@@ -17,9 +25,7 @@ export default class Trending extends Component {
         };
 
         this.addTweet = this.addTweet.bind(this);
-        this.getPage = this.getPage.bind(this);
         this.showNewTweets = this.showNewTweets.bind(this);
-        this.loadPagedTweets = this.loadPagedTweets.bind(this);
     }
 
     addTweet(tweet) {
@@ -39,24 +45,6 @@ export default class Trending extends Component {
 	    });
 
 	    this.setState({tweets: updated, count: 0});
-	}
-
-	loadPagedTweets(tweets) {
-	    let self = this;
-
-	    if(tweets.length > 0) {
-	      	let updated = this.state.tweets;
-	      	tweets.forEach(function(tweet){
-	        	updated.push(tweet);
-	    	});
-
-	    	setTimeout(() => {
-	        	self.setState({tweets: updated, paging: false});
-	      	}, 1000);
-	    } 
-	    else {
-	      this.setState({done: true, paging: false});
-	    }
 	}
 
 	componentWillMount() {
@@ -87,7 +75,7 @@ export default class Trending extends Component {
 
 	render () {
 		return (
-	      <div className="tweets-app">
+	      <div style={styles.container} className="tweets-app">
 	        <Tweets tweets={this.state.tweets} />
 	      </div>
 	    );
