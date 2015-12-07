@@ -20,3 +20,13 @@ export function getCategories() {
         dispatch({ type: 'UPDATE_CATEGORIES', categories });
     }
 }
+
+export function getDiscussions(categoryId=null, tagIds=[], maxResults=20, q=null) {
+    return async dispatch => {
+        const queryString = `?categoryId=${categoryId}&tagIds=${tagIds.join(',')}&maxResults=${maxResults}&q=${q}`;
+        const response = await fetch(API_HOST + '/discussion' + queryString);
+        const discussions = await response.json();
+
+        dispatch({ type: 'UDPATE_DISCUSSIONS', discussions });
+    }
+}

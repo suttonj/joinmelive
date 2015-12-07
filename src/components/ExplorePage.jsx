@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Menu from './Explore/Menu';
-import Main from './Explore/Main';
+import DiscussionsList from './Explore/DiscussionsList';
 
-import { getCategories }  from '../actions';
+import * as actionCreators from '../actions';
 
 export class ExplorePage extends Component {
     constructor(props) {
         super(props);
 
-        this.props.dispatch(getCategories());
+        this.props.getCategories();
+        this.props.getDiscussions();
     }
 
     render() {
@@ -19,11 +20,14 @@ export class ExplorePage extends Component {
                 <Menu style={{flexGrow:1,border:'1px solid red'}} categories={this.props.categories} />
                 <div style={{flexGrow:4,flexBasis:0,display:'flex',flexDirection:'column'}}>
                     <div style={{border:'1px solid green'}}><input type="text" placeholder="Search" /></div>
-                    <Main style={{flexGrow:1,border:'1px solid blue'}} discussions={this.props.discussions} />
+                    <DiscussionsList style={{flexGrow:1,border:'1px solid blue'}} discussions={this.props.discussions} />
                 </div>
             </div>
         );
     }
 }
 
-export default connect(state => state)(ExplorePage)
+export default connect(
+    state => state,
+    actionCreators
+)(ExplorePage)
