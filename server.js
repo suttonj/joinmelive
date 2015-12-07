@@ -7,7 +7,7 @@ var express = require('express'),
   streamHandler = require('./utils/streamHandler');
 
 var app = express();
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3030;
 
 app.disable('etag');
 

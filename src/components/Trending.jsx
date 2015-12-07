@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Tweets from './Tweets';
 
-const apiUrl = 'http://localhost:8080/';
+const apiUrl = 'http://localhost:3030/';
 
 const styles = {
     container: {
