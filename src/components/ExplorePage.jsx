@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Menu from './Explore/Menu';
 import Main from './Explore/Main';
 
-export default class ExplorePage extends Component {
+import { getCategories }  from '../actions';
+
+export class ExplorePage extends Component {
+    constructor(props) {
+        super(props);
+
+        this.props.dispatch(getCategories());
+    }
+
     render() {
         return (
             <div style={{display: 'flex',height:'100%'}}>
-                <Menu style={{flexGrow:1,backgroundColor:'red'}} />
-                <div style={{flexGrow:4,display:'flex',flexDirection:'column'}}>
-                    <div style={{backgroundColor:'yellow'}}><input type="text" placeholder="Search" /></div>
-                    <Main style={{flexGrow:1,backgroundColor:'blue'}} />
+                <Menu style={{flexGrow:1,border:'1px solid red'}} categories={this.props.categories} />
+                <div style={{flexGrow:4,flexBasis:0,display:'flex',flexDirection:'column'}}>
+                    <div style={{border:'1px solid green'}}><input type="text" placeholder="Search" /></div>
+                    <Main style={{flexGrow:1,border:'1px solid blue'}} discussions={this.props.discussions} />
                 </div>
             </div>
         );
     }
 }
+
+export default connect(state => state)(ExplorePage)
