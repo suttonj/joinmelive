@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import InfiniteList from './Infinite';
+import TrendTweets from './TrendTweets';
 import Trending from './Trending';
 
 export default class App extends Component {
@@ -11,6 +12,7 @@ export default class App extends Component {
                     <img src="img/jm-logo.svg" style={styles.img} />
                     <input type="text" placeholder="Search" />
                 </div>
+                <TrendTweets />
                 <Trending />
             </div>
         );
