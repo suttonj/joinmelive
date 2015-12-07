@@ -17,10 +17,17 @@ export class ExplorePage extends Component {
     render() {
         return (
             <div style={{display: 'flex',height:'100%'}}>
-                <Menu style={{flexGrow:1,border:'1px solid red'}} categories={this.props.categories} />
+                <Menu 
+                    style={{flexGrow:1,border:'1px solid red'}}
+                    categories={this.props.categories}
+                    selectCategory={ categoryId => this.props.selectCategory(categoryId) } />
                 <div style={{flexGrow:4,flexBasis:0,display:'flex',flexDirection:'column'}}>
-                    <div style={{border:'1px solid green'}}><input type="text" placeholder="Search" /></div>
-                    <DiscussionsList style={{flexGrow:1,border:'1px solid blue'}} discussions={this.props.discussions} />
+                    <div style={{border:'1px solid green'}}>
+                        <input type="text" placeholder="Search" />
+                    </div>
+                    <DiscussionsList 
+                        style={{flexGrow:1,border:'1px solid blue'}}
+                        discussions={this.props.discussions} />
                 </div>
             </div>
         );

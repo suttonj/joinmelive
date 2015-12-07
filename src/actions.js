@@ -34,12 +34,12 @@ export function getCategories() {
     };
 }
 
-export function getDiscussions({ categoryId=null, tagIds=[], maxResults=20, q=null }={}) {
+export function getDiscussions({ categoryId=null, tagIds=[], maxResults=20, q='' }={}) {
     return async dispatch => {
         const queryString = `?categoryId=${categoryId}&tagIds=${tagIds.join(',')}&maxResults=${maxResults}&q=${q}`;
         const response = await fetch(API_HOST + '/discussion' + queryString);
         const discussions = await response.json();
 
-        dispatch({ type: 'UDPATE_DISCUSSIONS', discussions });
+        dispatch({ type: 'UPDATE_DISCUSSIONS', discussions });
     };
 }

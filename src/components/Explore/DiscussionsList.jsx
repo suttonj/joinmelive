@@ -8,7 +8,7 @@ export default class DiscussionsList extends Component {
             <div style={this.props.style}>
                 <div>DiscussionsList</div>
                 <div style={{display:'flex',flexWrap:'wrap'}}>
-                    {this.props.discussions.map((disc, i) => <Discussion key={i} {...disc} style={{width:'calc(100% * 0.5)'}} />)}
+                    {this.props.discussions.map(disc => <Discussion key={disc.id} {...disc} style={{width:'calc(100% * 0.5)'}} />)}
                 </div>
             </div>
         );
@@ -21,5 +21,6 @@ DiscussionsList.propTypes = {
         id: PropTypes.number.isRequired,
         subject: PropTypes.string.isRequired,
         viewerCode: PropTypes.number.isRequired,
+        previewImageUrl: PropTypes.string.isRequired,
     })).isRequired,
 };
