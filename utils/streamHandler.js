@@ -1,6 +1,6 @@
 module.exports = function(stream, io){
 
-  stream.on('data', function(data) {
+  stream.on('tweet', function(data) {
     var tweet = {
       twid: data['id'],
       active: false,

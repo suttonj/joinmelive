@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Tweets from './Tweets';
 
 const apiUrl = 'http://localhost:3030/';
 
@@ -11,53 +10,39 @@ const styles = {
     }
 };
 
+class Topic extends Component {
+	constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div style={{height: 30}}>{ this.props.name }</div>
+        );
+    }
+}
+
 export default class Trending extends Component {
 	
 	constructor(props) {
         super(props);
 
         this.state = {
-            tweets: [],
-            count: 0,
-		    page: 0,
-		    paging: false,
-		    done: false
+            trends: []
         };
-
-        this.addTweet = this.addTweet.bind(this);
-        this.showNewTweets = this.showNewTweets.bind(this);
     }
-
-    addTweet(tweet) {
-	    let updated = this.state.tweets;
-	    let count = this.state.count + 1;
-
-	    updated.unshift(tweet);
-
-	    this.setState({ tweets: updated, count: count });
-	}
-
-	showNewTweets() {
-	    let updated = this.state.tweets;
-
-	    updated.forEach( (tweet) => {
-	      tweet.active = true;
-	    });
-
-	    this.setState({tweets: updated, count: 0});
-	}
 
 	componentWillMount() {
 		let self = this;
 		let request = new XMLHttpRequest();
 
-	    request.open('GET', apiUrl, true);
+	    request.open('GET', apiUrl + 'trends', true);
 	    request.onload = () => {
 
 	    	if (request.status >= 200 && request.status < 400){
-	    		let tweets = JSON.parse(request.responseText).tweets;
-	    		tweets = JSON.parse(tweets);
-			    self.setState({tweets: tweets});
+	    		let trends = JSON.parse(request.responseText).trends;
+	    		trends = JSON.parse(trends)[0].trends;
+			    self.setState({trends: trends});
 			}
 		}
 
@@ -66,17 +51,18 @@ export default class Trending extends Component {
 
 	componentDidMount() {
 	    let self = this;
-	    let socket = io.connect(apiUrl);
-
-	    socket.on('tweet', (data) => {
-	        self.addTweet(data);
-	    });
 	}
 
 	render () {
+		var trendList = this.state.trends.map((trend) => {
+	        return (
+	            <Topic key={trend.tweet_volume} name={trend.name} />
+	        )
+	    });
+
 		return (
-	      <div style={styles.container} className="tweets-app">
-	        <Tweets tweets={this.state.tweets} />
+	      <div style={styles.container} className="trending">
+	      	{ trendList }
 	      </div>
 	    );
 	}

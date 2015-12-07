@@ -1,7 +1,7 @@
 var express = require('express'),
   http = require('http'),
   cors = require('cors'),
-  twitter = require('twitter'),
+  twit = require('twit'),
   routes = require('./routes'),
   config = require('./config'),
   streamHandler = require('./utils/streamHandler');
@@ -13,9 +13,10 @@ app.disable('etag');
 
 app.use(cors());
 
-var twit = new twitter(config.twitter);
+var twitter = new twit(config.twitter);
 
 app.get('/', routes.index);
+app.get('/trends', routes.trends);
 
 var server = http.createServer(app).listen(port, function() {
   console.log('Express server listening on port ' + port);
@@ -23,6 +24,5 @@ var server = http.createServer(app).listen(port, function() {
 
 var io = require('socket.io').listen(server);
 
-twit.stream('statuses/filter',{ track: '#potus'}, function(stream){
-  streamHandler(stream,io);
-});
+var stream = twitter.stream('statuses/filter',{ track: '#Grammy'});
+streamHandler(stream, io);
