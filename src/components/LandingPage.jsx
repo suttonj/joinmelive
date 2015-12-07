@@ -10,7 +10,6 @@ export default class App extends Component {
                     <img src="img/jm-logo.svg" style={styles.img} />
                     <input type="text" placeholder="Search" />
                 </div>
-                <InfiniteList />
             </div>
         );
     }
