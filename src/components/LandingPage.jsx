@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import InfiniteList from './Infinite';
+import Trending from './Trending';
 
 export default class App extends Component {
     render() {
@@ -11,6 +12,7 @@ export default class App extends Component {
                     <input type="text" placeholder="Search" />
                 </div>
                 <InfiniteList />
+                <Trending />
             </div>
         );
     }
