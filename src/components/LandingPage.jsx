@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import InfiniteList from './Infinite';
-import Trending from './Trending';
+import InfiniteList from './Landing/Infinite';
+import Trending from './Landing/Trending';
 
 export default class App extends Component {
     render() {
