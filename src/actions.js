@@ -2,6 +2,19 @@ import {
     API_HOST,
 } from './constants';
 
+export function selectCategory(categoryId) {
+    getDiscussions({ categoryId });
+    return { type: 'UPDATE_SELECTED_CATEGORY', categoryId };
+}
+
+export function search(query) {
+    return async (dispatch, getState) => {
+        const { categoryId, tagIds } = getState().filters;
+        getDiscussions({ categoryId, tagIds, q: query });
+        dipsatch({ type: 'UPDATE_QUERY', query });
+    };
+}
+
 export function getCategories() {
     return async dispatch => {
         const response = await fetch(API_HOST + '/category')
@@ -18,15 +31,15 @@ export function getCategories() {
         });
 
         dispatch({ type: 'UPDATE_CATEGORIES', categories });
-    }
+    };
 }
 
-export function getDiscussions(categoryId=null, tagIds=[], maxResults=20, q=null) {
+export function getDiscussions({ categoryId=null, tagIds=[], maxResults=20, q=null }={}) {
     return async dispatch => {
         const queryString = `?categoryId=${categoryId}&tagIds=${tagIds.join(',')}&maxResults=${maxResults}&q=${q}`;
         const response = await fetch(API_HOST + '/discussion' + queryString);
         const discussions = await response.json();
 
         dispatch({ type: 'UDPATE_DISCUSSIONS', discussions });
-    }
+    };
 }
