@@ -49,7 +49,7 @@ export class ExplorePage extends Component {
                     <StartDiscussionModal
                         selectedCategoryId={discussionFilters.categoryId}
                         categories={this.props.categories}
-                        start={ params => this.props.startDiscussion(params) }
+                        start={ params => { this.props.startDiscussion(params); this.setState({ isModalOpen: false }) } }
                         close={ () => this.setState({ isModalOpen: false }) } />
                 }
                 </Modal>
