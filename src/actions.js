@@ -1,5 +1,7 @@
 import {
     API_HOST,
+    PAPI_HOST,
+    PAPI_AUTH,
 } from './constants';
 
 export function getCategories() {
@@ -56,13 +58,20 @@ export function search(query) {
 }
 
 export function updateSelectedTags(tagIds) {
-    return { type: 'UPDATE_SELECTED_TAGS', tagIds: tagIds.split(',').map(Number) };
+    return { type: 'UPDATE_SELECTED_TAGS', tagIds: tagIds ? tagIds.split(',').map(Number) : [] };
 }
 
-export function startDiscussion({ subject, categoryId, tagNames }) {
+export function startDiscussion({ subject, categoryId, tagNames: tags }) {
     return async dispatch => {
-        const viewerCode = Math.floor(Math.random() * 1000000000); // TODO
-        const body = { subject, viewerCode, categoryId, tags: tagNames };
+        const papiResponse = await fetch(PAPI_HOST + '/meetings/start', {
+            method: 'POST',
+            headers: { authorization: PAPI_AUTH },
+            body: JSON.stringify({}),
+        });
+        const json = await papiResonse.json();
+        const viewerCode = json.audioConference.conferenceId;
+        
+        const body = { subject, viewerCode, categoryId, tags };
         const response = await fetch(API_HOST + '/discussion', { 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -74,5 +83,6 @@ export function startDiscussion({ subject, categoryId, tagNames }) {
 }
 
 export function joinDiscussion(viewerCode) {
+    window.open('https://jmmaster.dev.3amlabs.net/' + viewerCode + '?suppressSticky=true');
     return { type: 'JOIN_DISCUSSION', viewerCode };
 }
