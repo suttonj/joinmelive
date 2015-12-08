@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 
-import Menu from './Explore/Menu';
+import CategoriesList from './Explore/CategoriesList';
 import DiscussionsList from './Explore/DiscussionsList';
 import StartDiscussionModal from './Explore/StartDiscussionModal';
 
@@ -24,7 +24,7 @@ export class ExplorePage extends Component {
         const { filtered: filteredDiscussions, filters: discussionFilters } = this.props.discussions;
         return (
             <div style={{display: 'flex',height:'100%'}}>
-                <Menu 
+                <CategoriesList 
                     style={{flexGrow:1,border:'1px solid red'}}
                     categories={this.props.categories}
                     selectedCategoryId={discussionFilters.categoryId}

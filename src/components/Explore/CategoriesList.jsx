@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import MenuItem from './MenuItem';
+import Category from './Category';
 
-export default class Menu extends Component {
+export default class CategoriesList extends Component {
     constructor(props) {
         super(props);
 
@@ -22,7 +22,7 @@ export default class Menu extends Component {
         return (
             <div style={this.props.style}>
             {this.props.categories.map(category => 
-                <MenuItem
+                <Category
                     key={category.id}
                     { ...category }
                     isOpen={this.isMenuItemOpen(category)}
@@ -33,7 +33,7 @@ export default class Menu extends Component {
     }
 }
 
-Menu.propTypes = {
+CategoriesList.propTypes = {
     style: PropTypes.object.isRequired,
     categories: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,

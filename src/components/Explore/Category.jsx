@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class MenuItem extends Component {
+export default class Category extends Component {
     render() {
         return (
             <div>
@@ -15,7 +15,7 @@ export default class MenuItem extends Component {
     }
 }
 
-MenuItem.propTypes = {
+Category.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
     id: PropTypes.number.isRequired,
