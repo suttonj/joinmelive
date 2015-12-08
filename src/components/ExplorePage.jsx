@@ -43,6 +43,7 @@ export class ExplorePage extends Component {
                 </div>
                 <Modal
                     isOpen={this.state.isModalOpen}
+                    style={{content:{width:250,height:250}}}
                     onRequestClose={ () => this.setState({ isModalOpen: false }) }>
                 {this.state.isModalOpen && 
                     <StartDiscussionModal
