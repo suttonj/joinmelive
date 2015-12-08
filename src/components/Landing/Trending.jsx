@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
 
+import TrendTweets from './TrendTweets';
+
 const apiUrl = 'http://localhost:3030/';
 
 const styles = {
-    container: {
+	container: {
+		display: 'flex',
+        flexDirection: 'row',
+        width: 480
+	},
+    innerContainer: {
         display: 'flex',
         flexDirection: 'column',
-        width: 300
+        width: 240,
+    	alignItems: 'flex-start'
+    },
+    label: {
+    	fontSize: 16,
+    	fontWeight: 'bold',
+    	padding: 8,
     }
 };
 
@@ -17,7 +30,7 @@ class Topic extends Component {
 
     render() {
         return (
-            <div style={{height: 30}}>{ this.props.name }</div>
+	        <div style={{padding: 5}}>{ this.props.name }</div>
         );
     }
 }
@@ -48,9 +61,16 @@ export default class Trending extends Component {
 	    }).splice(0, 10);
 
 		return (
-	      <div style={styles.container} className="trending">
-	      	{ trendList }
-	      </div>
+			<div style={styles.container}>
+			    <div style={styles.innerContainer} className="trending">
+	        		<span style={styles.label}>Trending</span>
+			      	{ trendList }
+			    </div>
+			    <div style={styles.innerContainer}>
+	        		<span style={styles.label}>Latest activity</span>
+			    	<TrendTweets />
+			    </div>
+		    </div>
 	    );
 	}
 

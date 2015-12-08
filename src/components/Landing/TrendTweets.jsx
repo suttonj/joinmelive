@@ -7,11 +7,14 @@ const styles = {
     container: {
         display: 'flex',
         flexDirection: 'column',
-        width: 200
+        alginItems: 'center',
+        width: 220,
+    	fontSize: 12,
+    	padding: 10
     }
 };
 
-export default class Trending extends Component {
+export default class TrendTweets extends Component {
 	
 	constructor(props) {
         super(props);
@@ -75,7 +78,7 @@ export default class Trending extends Component {
 
 	render() {
 		return (
-	      <div style={styles.container} className="tweets-app">
+	      <div style={styles.container} className="activity">
 	        <Tweets tweets={this.state.tweets} />
 	      </div>
 	    );
