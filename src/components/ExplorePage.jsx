@@ -43,11 +43,11 @@ export class ExplorePage extends Component {
                 </div>
                 <Modal
                     isOpen={this.state.isModalOpen}
-                    style={{content:{width:250,height:250}}}
+                    style={{content:{width:500,height:500}}}
                     onRequestClose={ () => this.setState({ isModalOpen: false }) }>
                 {this.state.isModalOpen && 
                     <StartDiscussionModal
-                        { ...discussionFilters }
+                        selectedCategoryId={discussionFilters.categoryId}
                         categories={this.props.categories}
                         start={ params => this.props.startDiscussion(params) }
                         close={ () => this.setState({ isModalOpen: false }) } />

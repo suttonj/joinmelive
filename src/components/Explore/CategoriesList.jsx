@@ -25,6 +25,7 @@ export default class CategoriesList extends Component {
                 <Category
                     key={category.id}
                     { ...category }
+                    selectedCategoryId={this.props.selectedCategoryId}
                     isOpen={this.isMenuItemOpen(category)}
                     onClick={ categoryId => this.props.selectCategory(categoryId) } />
             )}
@@ -34,7 +35,6 @@ export default class CategoriesList extends Component {
 }
 
 CategoriesList.propTypes = {
-    style: PropTypes.object.isRequired,
     categories: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,

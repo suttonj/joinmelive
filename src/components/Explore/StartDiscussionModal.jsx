@@ -1,11 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 
+import CategoriesList from './CategoriesList';
+
 export default class StartDiscussionModal extends Component {
     constructor(props) {
         super(props);
 
         this.state = { 
             ...this.props,
+            categoryId: this.props.selectedCategoryId,
             subject: '',
         };
     }
@@ -20,6 +23,11 @@ export default class StartDiscussionModal extends Component {
                     onKeyUp={ e => this.setState({ subject: e.target.value }) } />
                 <label>
                     Categories:
+                    <CategoriesList
+                        categories={this.props.categories}
+                        selectedCategoryId={this.state.categoryId}
+                        selectCategory={ categoryId => this.setState({ categoryId }) }
+                        />
                 </label>
                 <label>Tags: <select></select></label>
                 <button onClick={ () => this.props.start(this.state) }>Start</button>
