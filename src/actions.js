@@ -54,3 +54,8 @@ export function startDiscussion({ subject, categoryId, tagIds }) {
     console.log('Starting:', subject, categoryId, tagIds);
     return { type: 'START_DISCUSSION' };
 }
+
+export function joinDiscussion({ discussionId }) {
+    console.log('Joining:', discussionId);
+    return { type: 'JOIN_DISCUSSION' };
+}

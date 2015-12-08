@@ -2,8 +2,8 @@ var express = require('express'),
   http = require('http'),
   cors = require('cors'),
   twit = require('twit'),
-  routes = require('./routes'),
-  config = require('./config'),
+  routes = require('./server/routes'),
+  config = require('./server/config'),
   streamHandler = require('./utils/streamHandler');
 
 var app = express();
@@ -24,5 +24,5 @@ var server = http.createServer(app).listen(port, function() {
 
 var io = require('socket.io').listen(server);
 
-var stream = twitter.stream('statuses/filter',{ track: '#Grammy'});
+var stream = twitter.stream('statuses/filter',{ track: '#trump'});
 streamHandler(stream, io);

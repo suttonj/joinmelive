@@ -29,7 +29,8 @@ class Topic extends Component {
 
     render() {
         return (
-            <div style={{padding: 3}}>{ this.props.name }</div>
+            <a style={{padding: 3, cursor: 'pointer'}} 
+            	onClick={this.props.showDiscussions.bind(this, this.props.name)}>{ this.props.name }</a>
         );
     }
 }
@@ -40,7 +41,7 @@ export default class Trending extends Component {
         super(props);
 
         this.state = {
-            trends: this.props.trends
+            ...this.props
         };
     }
 
@@ -53,9 +54,9 @@ export default class Trending extends Component {
 	}
 
 	render () {
-		var trendList = this.state.trends.map((trend, index) => {
+		var trendList = this.props.trends.map((trend, index) => {
 	        return (
-	            <Topic key={trend.query} name={trend.name} />
+	            <Topic key={trend.query} name={trend.name} showDiscussions={this.props.showDiscussions} />
 	        )
 	    }).splice(0, 10);
 
