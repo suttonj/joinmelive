@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import InfiniteList from './Landing/Infinite';
-import TrendTweets from './Landing/TrendTweets';
 import Trending from './Landing/Trending';
 import Search from './Landing/Search';
 import './Landing/Landing.css';
@@ -41,9 +40,10 @@ export default class App extends Component {
                 <div style={styles.innerContainer}>
                     <img src="img/jm-logo.svg" style={styles.img} />
                     <Search suggestions={this.state.trends}/>
+                    <div style={styles.textContainer}>
+                        <Trending trends={this.state.trends} />
+                    </div>
                 </div>
-                <TrendTweets />
-                <Trending trends={this.state.trends} />
             </div>
         );
     }
@@ -60,6 +60,15 @@ const styles = {
     innerContainer: {
         display: 'flex',
         flexDirection: 'column',
+    },
+    textContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#555',
+        opacity: '0.9',
+        color: '#eee',
+        borderRadius: 5,
+        width: 480
     },
     img: {
         width: 500,

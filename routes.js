@@ -27,7 +27,7 @@ module.exports = {
   },
 
   trends: function(req, res) {
-    twitter.get('trends/place', { id: 1 }, function(err, data) {
+    twitter.get('trends/place', { id: 2367105 }, function(err, data) {
       var trends = JSON.stringify(data);
       if (typeof data === "undefined") {
         res.send({status: false});
