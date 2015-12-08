@@ -6,13 +6,12 @@ export default class DiscussionsList extends Component {
     render() {
         return (
             <div style={this.props.style}>
-                <div>DiscussionsList</div>
-                <div style={{display:'flex',flexWrap:'wrap'}}>
+                <div style={{display:'flex',flexWrap:'wrap',justifyContent:'flex-start'}}>
                 {this.props.discussions.map(disc => 
                     <Discussion
                         key={disc.id}
                         {...disc}
-                        style={{width:'calc(100% * 0.5)'}}
+                        style={{width:200,padding:'0 20px'}}
                         join={ () => this.props.joinDiscussion(disc.viewerCode) } />
                 )}
                     <div>
