@@ -57,8 +57,10 @@ export class ExplorePage extends Component {
                     onRequestClose={ () => this.setState({ isModalOpen: false }) }>
                 {this.state.isModalOpen && 
                     <StartDiscussionModal
-                        selectedCategoryId={discussionFilters.categoryId}
+                        { ...discussionFilters }
+                        tagNames={discussionFilters.tagIds.map(id => this.props.tags.filter(tag => tag.id === id)[0].name)}
                         categories={this.props.categories}
+                        tags={this.props.tags}
                         start={ params => { this.props.startDiscussion(params); this.setState({ isModalOpen: false }) } }
                         close={ () => this.setState({ isModalOpen: false }) } />
                 }

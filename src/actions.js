@@ -59,7 +59,16 @@ export function updateSelectedTags(tagIds) {
     return { type: 'UPDATE_SELECTED_TAGS', tagIds: tagIds.split(',').map(Number) };
 }
 
-export function startDiscussion({ subject, categoryId, tagIds }) {
-    console.log('Starting:', subject, categoryId, tagIds);
-    return { type: 'START_DISCUSSION' };
+export function startDiscussion({ subject, categoryId, tagNames }) {
+    return async dispatch => {
+        const viewerCode = Math.floor(Math.random() * 1000000000); // TODO
+        const body = { subject, viewerCode, categoryId, tags: tagNames };
+        const response = await fetch(API_HOST + '/discussion', { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+
+        dispatch({ type: 'START_DISCUSSION', ...body });
+    };
 }
