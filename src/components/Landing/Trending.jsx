@@ -6,7 +6,7 @@ const styles = {
     container: {
         display: 'flex',
         flexDirection: 'column',
-        width: 200
+        width: 300
     }
 };
 
@@ -28,7 +28,7 @@ export default class Trending extends Component {
         super(props);
 
         this.state = {
-            trends: this.props.trends
+            trends: props.trends
         };
     }
 
@@ -41,11 +41,11 @@ export default class Trending extends Component {
 	}
 
 	render () {
-		var trendList = this.state.trends.map((trend) => {
+		var trendList = this.state.trends.map((trend, index) => {
 	        return (
 	            <Topic key={trend.query} name={trend.name} />
 	        )
-	    });
+	    }).splice(0, 10);
 
 		return (
 	      <div style={styles.container} className="trending">

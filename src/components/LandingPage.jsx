@@ -40,9 +40,9 @@ export default class App extends Component {
                 <div style={styles.innerContainer}>
                     <img src="img/jm-logo.svg" style={styles.img} />
                     <Search suggestions={this.state.trends}/>
+                    <Trending trends={this.state.trends} />
                 </div>
                 <TrendTweets />
-                <Trending trends={this.state.trends} />
             </div>
         );
     }
@@ -52,6 +52,10 @@ const styles = {
     container: {
         display: 'flex',
         justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        padding: 10,
+        margin: 0
     },
     innerContainer: {
         display: 'flex',
