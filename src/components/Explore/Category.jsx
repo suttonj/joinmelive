@@ -4,10 +4,17 @@ export default class Category extends Component {
     render() {
         return (
             <div>
-                <div onClick={ () =>  this.props.onClick(this.props.id) }>{this.props.name}</div>
+                <div
+                    style={{backgroundColor:this.props.id === this.props.selectedCategoryId && 'red'}}
+                    onClick={ () =>  this.props.onClick(this.props.id) }>
+                    {this.props.name}
+                </div>
                 <div>
                 {this.props.isOpen && this.props.subCategories.map(sub => 
-                    <div key={sub.id} onClick={ () => this.props.onClick(sub.id) }>--{sub.name}</div>
+                    <div
+                        key={sub.id}
+                        style={{backgroundColor:sub.id === this.props.selectedCategoryId && 'red'}}
+                        onClick={ () => this.props.onClick(sub.id) }>--{sub.name}</div>
                 )}
                 </div>
             </div>
@@ -17,6 +24,7 @@ export default class Category extends Component {
 
 Category.propTypes = {
     isOpen: PropTypes.bool.isRequired,
+    selectedCategoryId: PropTypes.number,
     onClick: PropTypes.func.isRequired,
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
