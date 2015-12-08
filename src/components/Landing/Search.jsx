@@ -20,52 +20,23 @@ export default class Search extends Component {
 	}
 
 	getSuggestions(input, callback) {
-		const suggestions = this.fuse.search(input).slice(0,7);
-		setTimeout(() => callback(null, suggestions), 250);
+		const suggestions = this.fuse.search(input);
+		callback(null, suggestions); 
 	}
 
-	renderSuggestion(suggestionObj, input) {
-		const name = suggestionObj.name;
-		// const escapedInput = utils.escapeRegexCharacters(input);
-		const trendMatchRegex = new RegExp('\\b' + name, 'i');
-		const suggestion = suggestionObj.name;
-		const firstMatchIndex = suggestion.search(trendMatchRegex);
-
-		if (firstMatchIndex === -1) {
-			return suggestion;
-		}
-
-		const beforeMatch = suggestion.slice(0, firstMatchIndex);
-		const match = suggestion.slice(firstMatchIndex, firstMatchIndex + input.length);
-		const afterMatch = suggestion.slice(firstMatchIndex + input.length);
-
+	renderSuggestion(suggestion, input) {
+		let name = suggestion.name;
 		return (
-		    <span>
-			  {beforeMatch}<strong>{match}</strong>{afterMatch}<br />
-			  <small style={{ color: '#777' }}>Users: {suggestionObj.tweet_volume}</small>
-			</span>
+		    <span><strong>{name.slice(0, input.length)}</strong>{name.slice(input.length)}</span>
 		);
 	}
 
-	getSuggestionValue(suggestionObj) {
-		return suggestionObj.name;
-	}
-
-
 	render() {
-		const inputAttributes = {
-	      	id: 'trends-renderer',
-	      	placeholder: 'What do you want to discuss?'
-	    };
+
 	    return (
-	    	<div className="search">
-			    <Autosuggest 
-			      	suggestions={this.getSuggestions}
-			      	suggestionRenderer={this.renderSuggestion}
-			      	suggestionValue={this.getSuggestionValue}
-                    inputAttributes={this.inputAttributes}
-                    scrollBar={true} />
-			</div>
+	      <Autosuggest 
+	      	suggestions={this.getSuggestions}
+	      	suggestionRenderer={this.renderSuggestion} />
 	    );
 	}
 }

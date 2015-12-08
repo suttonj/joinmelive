@@ -1,25 +1,12 @@
 import React, { Component } from 'react';
 
-import TrendTweets from './TrendTweets';
-
 const apiUrl = 'http://localhost:3030/';
 
 const styles = {
-	container: {
-		display: 'flex',
-        flexDirection: 'row',
-        width: 480
-	},
-    innerContainer: {
+    container: {
         display: 'flex',
         flexDirection: 'column',
-        width: 240,
-    	alignItems: 'flex-start'
-    },
-    label: {
-    	fontSize: 16,
-    	fontWeight: 'bold',
-    	padding: 8,
+        width: 200
     }
 };
 
@@ -30,7 +17,7 @@ class Topic extends Component {
 
     render() {
         return (
-	        <div style={{padding: 5}}>{ this.props.name }</div>
+            <div style={{height: 30}}>{ this.props.name }</div>
         );
     }
 }
@@ -41,7 +28,7 @@ export default class Trending extends Component {
         super(props);
 
         this.state = {
-            trends: props.trends
+            trends: this.props.trends
         };
     }
 
@@ -54,23 +41,16 @@ export default class Trending extends Component {
 	}
 
 	render () {
-		var trendList = this.state.trends.map((trend, index) => {
+		var trendList = this.state.trends.map((trend) => {
 	        return (
 	            <Topic key={trend.query} name={trend.name} />
 	        )
-	    }).splice(0, 10);
+	    });
 
 		return (
-			<div style={styles.container}>
-			    <div style={styles.innerContainer} className="trending">
-	        		<span style={styles.label}>Trending</span>
-			      	{ trendList }
-			    </div>
-			    <div style={styles.innerContainer}>
-	        		<span style={styles.label}>Latest activity</span>
-			    	<TrendTweets />
-			    </div>
-		    </div>
+	      <div style={styles.container} className="trending">
+	      	{ trendList }
+	      </div>
 	    );
 	}
 
