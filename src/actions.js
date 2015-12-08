@@ -49,3 +49,8 @@ export function search(query) {
 export function addTag(tagIds) {
     return { type: 'UPDATE_TAGS', tagIds };
 }
+
+export function startDiscussion({ subject, categoryId, tagIds }) {
+    console.log('Starting:', subject, categoryId, tagIds);
+    return { type: 'START_DISCUSSION' };
+}

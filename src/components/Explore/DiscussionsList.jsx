@@ -9,6 +9,9 @@ export default class DiscussionsList extends Component {
                 <div>DiscussionsList</div>
                 <div style={{display:'flex',flexWrap:'wrap'}}>
                     {this.props.discussions.map(disc => <Discussion key={disc.id} {...disc} style={{width:'calc(100% * 0.5)'}} />)}
+                    <div>
+                        <button onClick={this.props.startDiscussion}>Start your own discussion!</button> 
+                    </div>
                 </div>
             </div>
         );
@@ -23,4 +26,5 @@ DiscussionsList.propTypes = {
         viewerCode: PropTypes.number.isRequired,
         previewImageUrl: PropTypes.string.isRequired,
     })).isRequired,
+    startDiscussion: PropTypes.func.isRequired,
 };

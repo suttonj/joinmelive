@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Modal from 'react-modal';
 
 import Menu from './Explore/Menu';
 import DiscussionsList from './Explore/DiscussionsList';
+import StartDiscussionModal from './Explore/StartDiscussionModal';
 
 import * as actionCreators from '../actions';
 
 export class ExplorePage extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            isModalOpen: false,
+        };
 
         this.props.getCategories();
         this.props.getDiscussions();
@@ -32,8 +38,20 @@ export class ExplorePage extends Component {
                     </div>
                     <DiscussionsList 
                         style={{flexGrow:1,border:'1px solid blue'}}
-                        discussions={filteredDiscussions} />
+                        discussions={filteredDiscussions}
+                        startDiscussion={ () => this.setState({ isModalOpen: true }) } />
                 </div>
+                <Modal
+                    isOpen={this.state.isModalOpen}
+                    onRequestClose={ () => this.setState({ isModalOpen: false }) }>
+                {this.state.isModalOpen && 
+                    <StartDiscussionModal
+                        { ...discussionFilters }
+                        categories={this.props.categories}
+                        start={ params => this.props.startDiscussion(params) }
+                        close={ () => this.setState({ isModalOpen: false }) } />
+                }
+                </Modal>
             </div>
         );
     }
