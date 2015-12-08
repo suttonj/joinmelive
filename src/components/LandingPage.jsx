@@ -4,6 +4,7 @@ import InfiniteList from './Landing/Infinite';
 import TrendTweets from './Landing/TrendTweets';
 import Trending from './Landing/Trending';
 import Search from './Landing/Search';
+import './Landing/Landing.css';
 
 const apiUrl = 'http://localhost:3030/';
 
@@ -36,7 +37,7 @@ export default class App extends Component {
 
     render() {
         return (
-            <div style={styles.container}>
+            <div className="landing" style={styles.container}>
                 <div style={styles.innerContainer}>
                     <img src="img/jm-logo.svg" style={styles.img} />
                     <Search suggestions={this.state.trends}/>
@@ -52,6 +53,9 @@ const styles = {
     container: {
         display: 'flex',
         justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        margin: 0
     },
     innerContainer: {
         display: 'flex',
