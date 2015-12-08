@@ -5,12 +5,17 @@ export default class Menu extends Component {
     constructor(props) {
         super(props);
 
-        this.onClickParentCategory = this.onClickParentCategory.bind(this);        
+        this.onClickParentCategory = this.onClickParentCategory.bind(this);
+        this.isMenuItemOpen = this.isMenuItemOpen.bind(this);
     }
 
     onClickParentCategory(id) {
         this.props.selectCategory(id);
+    }
 
+    isMenuItemOpen(category) {
+        return category.id === this.props.selectedCategoryId ||
+            category.subCategories.some(sub => sub.id === this.props.selectedCategoryId);
     }
 
     render() {
@@ -18,8 +23,9 @@ export default class Menu extends Component {
             <div style={this.props.style}>
             {this.props.categories.map(category => 
                 <MenuItem
+                    key={category.id}
                     { ...category }
-                    isOpen={category.id === this.props.selectedCategoryId}
+                    isOpen={this.isMenuItemOpen(category)}
                     onClick={ categoryId => this.props.selectCategory(categoryId) } />
             )}
             </div>
@@ -37,6 +43,6 @@ Menu.propTypes = {
             name: PropTypes.string.isRequired,
         })).isRequired,
     })).isRequired,
-    selectedCategoryId: PropTypes.number.isRequired,
+    selectedCategoryId: PropTypes.number,
     selectCategory: PropTypes.func.isRequired,
 };

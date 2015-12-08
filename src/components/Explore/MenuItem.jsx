@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 export default class MenuItem extends Component {
     render() {
         return (
-            <div key={this.props.id}>
+            <div>
                 <div onClick={ () =>  this.props.onClick(this.props.id) }>{this.props.name}</div>
                 <div>
                 {this.props.isOpen && this.props.subCategories.map(sub => 
