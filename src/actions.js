@@ -23,7 +23,7 @@ export function getCategories() {
     };
 }
 
-export function getDiscussions({ categoryId=null, tagIds=[], maxResults=20, q='' }={}) {
+export function getDiscussions({ categoryId=null, tagIds=[], maxResults=100000000, q='' }={}) {
     return async dispatch => {
         const queryString = `?categoryId=${categoryId}&tagIds=${tagIds.join(',')}&maxResults=${maxResults}&q=${q}`;
         const response = await fetch(API_HOST + '/discussion' + queryString);
@@ -62,14 +62,15 @@ export function updateSelectedTags(tagIds) {
 }
 
 export function startDiscussion({ subject, categoryId, tagNames: tags }) {
-    return async dispatch => {
-        const papiResponse = await fetch(PAPI_HOST + '/meetings/start', {
+    return async (dispatch, getState) => {
+        const papiResponse = await fetch(PAPI_HOST + '/api/public/v1/meetings/start', {
             method: 'POST',
-            headers: { authorization: PAPI_AUTH },
+            headers: { authorization: PAPI_AUTH, 'Content-Type': 'application/json' },
             body: JSON.stringify({}),
         });
-        const json = await papiResonse.json();
+        const json = await papiResponse.json();
         const viewerCode = json.audioConference.conferenceId;
+        const startMeetingPath = json.presenterLink.split('join.me')[1]
         
         const body = { subject, viewerCode, categoryId, tags };
         const response = await fetch(API_HOST + '/discussion', { 
@@ -78,7 +79,8 @@ export function startDiscussion({ subject, categoryId, tagNames: tags }) {
             body: JSON.stringify(body)
         });
 
-        dispatch({ type: 'START_DISCUSSION', ...body });
+        getDiscussions()(dispatch);
+        window.open(PAPI_HOST + startMeetingPath);        
     };
 }
 
