@@ -49,7 +49,8 @@ export class ExplorePage extends Component {
                     <DiscussionsList 
                         style={{flexGrow:1,border:'1px solid blue'}}
                         discussions={filteredDiscussions}
-                        startDiscussion={ () => this.setState({ isModalOpen: true }) } />
+                        startDiscussion={ () => this.setState({ isModalOpen: true }) }
+                        joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
                 </div>
                 <Modal
                     isOpen={this.state.isModalOpen}

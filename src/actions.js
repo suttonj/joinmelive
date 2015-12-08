@@ -72,3 +72,7 @@ export function startDiscussion({ subject, categoryId, tagNames }) {
         dispatch({ type: 'START_DISCUSSION', ...body });
     };
 }
+
+export function joinDiscussion(viewerCode) {
+    return { type: 'JOIN_DISCUSSION', viewerCode };
+}
