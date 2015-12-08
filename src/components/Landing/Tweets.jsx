@@ -60,7 +60,7 @@ export default class Tweets extends Component {
             <Infinite 
                 className="tweets"
                 elementHeight={50}
-                elementWidth={500}
+                elementWidth={220}
                 containerHeight={250}
                 infiniteLoadBeginEdgeOffset={200}
                 onInfiniteLoad={this.handleInfiniteLoad}
