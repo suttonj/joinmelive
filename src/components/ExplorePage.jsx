@@ -15,20 +15,24 @@ export class ExplorePage extends Component {
     }
 
     render() {
+        const { filtered: filteredDiscussions, filters: discussionFilters } = this.props.discussions;
         return (
             <div style={{display: 'flex',height:'100%'}}>
                 <Menu 
                     style={{flexGrow:1,border:'1px solid red'}}
                     categories={this.props.categories}
-                    selectedCategoryId={this.props.filters.categoryId}
+                    selectedCategoryId={discussionFilters.categoryId}
                     selectCategory={this.props.selectCategory} />
                 <div style={{flexGrow:4,flexBasis:0,display:'flex',flexDirection:'column'}}>
                     <div style={{border:'1px solid green'}}>
-                        <input type="text" placeholder="Search" />
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            onKeyUp={ e => this.props.search(e.target.value) } />
                     </div>
                     <DiscussionsList 
                         style={{flexGrow:1,border:'1px solid blue'}}
-                        discussions={this.props.discussions} />
+                        discussions={filteredDiscussions} />
                 </div>
             </div>
         );
