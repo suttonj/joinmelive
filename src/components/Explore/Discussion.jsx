@@ -4,7 +4,7 @@ export default class Discussion extends Component {
     render() {
         return (
             <div id={this.props.id} data-viewercode={this.props.viewerCode} style={this.props.style}>
-                <img src={this.props.previewImageUrl} />
+                <img src={this.props.previewImageUrl} style={{width:200,height:200}} />
                 <div>{this.props.subject}</div>
             </div>
         );

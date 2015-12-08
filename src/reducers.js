@@ -41,7 +41,7 @@ function discussions(state={all:[], filtered:[], filters: filtersInitialState}, 
             const filtered = filterDiscussions(state.all, filters);
             return { ...state, filtered, filters };
         }
-        case 'UPDATE_TAGS': {
+        case 'UPDATE_SELECTED_TAGS': {
             const filters = { ...state.filters, tagIds: action.tagIds };
             const filtered = filterDiscussions(state.all, filters);
             return { ...state, filtered, filters };
@@ -51,7 +51,17 @@ function discussions(state={all:[], filtered:[], filters: filtersInitialState}, 
     }
 }
 
+function tags(state=[], action) {
+    switch (action.type) {
+        case 'UPDATE_TAGS':
+            return action.tags;
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     categories,
     discussions,
+    tags,
 });
