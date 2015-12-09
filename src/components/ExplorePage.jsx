@@ -36,17 +36,11 @@ export class ExplorePage extends Component {
                     search={this.props.search}
                     tags={this.props.tags}
                     updateSelectedTags={this.props.updateSelectedTags}
-                    selectedTagIds={discussionFilters.tagIds} />
-                <div style={styles.mainContainer}>                        
-                    <div style={styles.categoriesContainer}>
-                    {this.props.ajax.getCategories ?
-                        <LoadingSpinner /> :
-                        <CategoriesList 
-                            categories={this.props.categories}
-                            selectedCategoryId={discussionFilters.categoryId}
-                            selectCategory={this.props.selectCategory} />
-                    }
-                    </div>   
+                    selectedTagIds={discussionFilters.tagIds}
+                    categories={this.props.categories}
+                    selectedCategoryId={discussionFilters.categoryId}
+                    selectCategory={this.props.selectCategory} />
+                <div style={styles.mainContainer}>           
                     <div style={styles.discussionsContainer}>
                     {this.props.ajax.getDiscussions ?
                         <LoadingSpinner /> :
@@ -92,11 +86,6 @@ const styles = {
     },
     mainContainer: {
         display:'flex',
-    },
-    categoriesContainer: {
-        flexGrow:1,
-        border:'1px solid red',
-        position:'relative',
     },
     discussionsContainer: {
         flexGrow:4,
