@@ -7,7 +7,6 @@
 */
 .Select {
   position: relative;
-  flex-grow: 1;
 }
 .Select,
 .Select div,

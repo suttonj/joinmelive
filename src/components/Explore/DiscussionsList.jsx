@@ -6,8 +6,8 @@ export default class DiscussionsList extends Component {
     render() {
         return (
             <div>
-                <div>DiscussionsList</div>
                 <div style={{display:'flex',flexWrap:'wrap',justifyContent:'flex-start'}}>
+                {this.props.categoryName}
                 {this.props.discussions.map(disc => 
                     <Discussion
                         key={disc.id}
@@ -25,6 +25,7 @@ export default class DiscussionsList extends Component {
 }
 
 DiscussionsList.propTypes = {
+    categoryName: PropTypes.string,
     discussions: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         subject: PropTypes.string.isRequired,
