@@ -37,6 +37,19 @@ const styles = {
         width: 500,
         height: 'auto',
     },
+    modal: {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            width:600,
+            height:400
+        }
+    }
+
 };
 
 export default class LandingPage extends Component {
@@ -91,7 +104,7 @@ export default class LandingPage extends Component {
                     </div>
                     <Modal
                         isOpen={this.state.isModalOpen}
-                        style={{content:{width:600,height:400}}}
+                        style={styles.modal}
                         onRequestClose={ () => this.setState({ isModalOpen: false }) }>
                     {this.state.isModalOpen && 
                         <JoinDiscussionModal
@@ -99,8 +112,8 @@ export default class LandingPage extends Component {
                             discussions={filteredDiscussions}
                             categories={this.props.categories}
                             tags={this.props.tags}
-                            start={ params => { this.props.startDiscussion(params); this.setState({ isModalOpen: false }) } }
-                            join={ params => this.props.joinDiscussion(params) }
+                            startDiscussion={ params => { this.props.startDiscussion(params); this.setState({ isModalOpen: false }) } }
+                            joinDiscussion={ params => this.props.joinDiscussion(params) }
                             close={ () => this.setState({ isModalOpen: false }) } />
                     }
                     </Modal>

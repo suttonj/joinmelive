@@ -5,8 +5,23 @@ import Discussion from './Discussion';
 const styles = {
     container: {
         display: 'flex',
+        flexDirection: 'column'
+    },
+    discussionsContainer: {
+        display:'flex',
+        flexWrap:'wrap',
         flexDirection: 'column',
-        width: 560
+        padding:20
+    },
+    discussionItem: {
+        padding: '10px 20px',
+        margin: '10px 0',
+        height: 140,
+        display: 'flex',
+        flexDirection: 'row',
+        border: '2px solid #ddd',
+        borderRadius: '4px',
+        backgroundColor: "#eee"
     }
 };
 
@@ -14,12 +29,12 @@ export default class DiscussionList extends Component {
     render() {
         return (
             <div style={styles.container}>
-                <div style={{display:'flex',flexWrap:'wrap'}}>
+                <div style={styles.discussionsContainer}>
                 {this.props.discussions.map(disc => 
                     <Discussion
                         key={disc.id}
                         {...disc}
-                        style={{width:600}}
+                        style={styles.discussionItem}
                         join={ () => this.props.joinDiscussion(disc.viewerCode) } />
                 )}
                     <div>
@@ -32,7 +47,6 @@ export default class DiscussionList extends Component {
 }
 
 DiscussionList.propTypes = {
-    style: PropTypes.object.isRequired,
     discussions: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         subject: PropTypes.string.isRequired,

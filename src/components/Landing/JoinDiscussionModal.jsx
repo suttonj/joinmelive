@@ -14,9 +14,8 @@ export default class JoinDiscussionModal extends Component {
     render() {
         return (
             <div>
-                <h2>Join the discussion:</h2>
+                <h3 style={{margin:'0 auto', textAlign:'center'}}>Join the <strong>{this.props.query}</strong> discussion</h3>
                 <DiscussionList 
-                        style={{flexGrow:1,border:'1px solid blue'}}
                         discussions={this.props.discussions}
                         startDiscussion={ () => this.setState({ isModalOpen: true }) } //change
                         joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
@@ -36,7 +35,7 @@ JoinDiscussionModal.propTypes = {
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
     })),
-    join: PropTypes.func.isRequired,
-    start: PropTypes.func.isRequired,
+    joinDiscussion: PropTypes.func.isRequired,
+    startDiscussion: PropTypes.func.isRequired,
     close: PropTypes.func.isRequired,
 };
