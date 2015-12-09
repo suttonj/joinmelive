@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import Select from 'react-select';
 
+import Header from './Explore/Header';
 import CategoriesList from './Explore/CategoriesList';
 import DiscussionsList from './Explore/DiscussionsList';
 import StartDiscussionModal from './Explore/StartDiscussionModal';
@@ -25,10 +25,6 @@ export class ExplorePage extends Component {
         this.props.getTags();
     }
 
-    componentDidMount() {
-        this.refs.searchInput.focus();
-    }
-
     render() {
         const { filtered: filteredDiscussions, filters: discussionFilters } = this.props.discussions;
         const selectedCategoryName = discussionFilters.categoryId ?
@@ -36,27 +32,11 @@ export class ExplorePage extends Component {
             '';
         return (
             <div style={styles.container}>
-                <div style={styles.headerContainer}>
-                    <img src='img/jm-logo.svg' style={styles.logo} />
-                    <div style={styles.searchContainer}>
-                        <input
-                            type="text"
-                            ref="searchInput"
-                            placeholder="Search"
-                            onKeyUp={ e => this.props.search(e.target.value) } />
-                    </div>
-                    <div style={styles.tagsContainer}>
-                    {this.props.ajax.getTags ?
-                        <LoadingSpinner /> :
-                        <Select
-                            multi={true}
-                            value={discussionFilters.tagIds.join(',')}
-                            delimiter=","
-                            options={this.props.tags.map(tag => ({ value: tag.id, label: tag.name }))}
-                            onChange={this.props.updateSelectedTags} />
-                    }
-                    </div>                        
-                </div>             
+                <Header
+                    search={this.props.search}
+                    tags={this.props.tags}
+                    updateSelectedTags={this.props.updateSelectedTags}
+                    selectedTagIds={discussionFilters.tagIds} />
                 <div style={styles.mainContainer}>                        
                     <div style={styles.categoriesContainer}>
                     {this.props.ajax.getCategories ?
@@ -103,13 +83,33 @@ export default connect(
 )(ExplorePage)
 
 const styles = {
-    container: {display: 'flex',flexDirection:'column',height:'100%',backgroundColor:'#444444',color:'white'},
-    headerContainer: {display:'flex',position:'relative',padding:'10 25%',backgroundColor:'#2b2b2b',boxShadow:'0 0 11px 1px #111'},
-    logo: {width:100,height:100},
-    searchContainer: {flexGrow:1},
-    tagsContainer: {flexGrow:1},
-    mainContainer: {display:'flex'},
-    categoriesContainer: {flexGrow:1,border:'1px solid red',position:'relative'},
-    discussionsContainer: {flexGrow:4,position:'relative',backgroundColor:'#2b2b2b',borderRadius:5,margin:10,boxShadow:'0 0 11px 1px #111'},
-    modal: {content:{width:500,height:500}},
+    container: {
+        display: 'flex',
+        flexDirection:'column',
+        height:'100%',
+        backgroundColor:'#444444',
+        color:'white',
+    },
+    mainContainer: {
+        display:'flex',
+    },
+    categoriesContainer: {
+        flexGrow:1,
+        border:'1px solid red',
+        position:'relative',
+    },
+    discussionsContainer: {
+        flexGrow:4,
+        position:'relative',
+        backgroundColor:'#2b2b2b',
+        borderRadius:5,
+        margin:10,
+        boxShadow:'0 0 11px 1px #111',
+    },
+    modal: {
+        content:{
+            width:500,
+            height:500,
+        },
+    },
 };

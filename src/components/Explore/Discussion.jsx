@@ -6,9 +6,8 @@ export default class Discussion extends Component {
             <div
                 id={this.props.id}
                 onClick={this.props.join}
-                data-viewercode={this.props.viewerCode}
-                style={this.props.style}>
-                <img src={this.props.previewImageUrl} style={{width:200,height:200}} />
+                style={{width:200,padding:'0 20px'}}>
+                <img src={this.props.previewImageUrl} style={{width:200,height:200,borderRadius:'50%'}} />
                 <div>{this.props.subject}</div>
             </div>
         );
