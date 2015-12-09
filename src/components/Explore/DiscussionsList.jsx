@@ -5,7 +5,7 @@ import Discussion from './Discussion';
 export default class DiscussionsList extends Component {
     render() {
         return (
-            <div>
+            <div style={{padding:10}}>
                 <div>
                     <div>{this.props.categoryName}</div>
                 </div>
