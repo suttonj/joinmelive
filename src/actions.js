@@ -6,6 +6,9 @@ import {
 
 export function getCategories() {
     return async dispatch => {
+
+        dispatch({ type: 'GET_CATEGORIES' });
+        
         const response = await fetch(API_HOST + '/category')
         const categoriesJson = await response.json();
 
@@ -19,31 +22,41 @@ export function getCategories() {
             return category;
         });
 
+        dispatch({ type: 'GET_CATEGORIES' });
         dispatch({ type: 'UPDATE_CATEGORIES', categories });
     };
 }
 
 export function getDiscussions({ categoryId=null, tagIds=[], maxResults=100000000, q='' }={}) {
     return async dispatch => {
+
+        dispatch({ type: 'GET_DISCUSSIONS' });
+
         const queryString = `?categoryId=${categoryId}&tagIds=${tagIds.join(',')}&maxResults=${maxResults}&q=${q}`;
         const response = await fetch(API_HOST + '/discussion' + queryString);
         const discussions = await response.json();
         
+        dispatch({ type: 'GET_DISCUSSIONS' });
         dispatch({ type: 'UPDATE_DISCUSSIONS', discussions });
     };
 }
 
 export function getTags() {
     return async dispatch => {
+
+        dispatch({ type: 'GET_TAGS' });
+
         const response = await fetch(API_HOST + '/tag');
         const tags = await response.json();
 
+        dispatch({ type: 'GET_TAGS' });
         dispatch({ type: 'UPDATE_TAGS', tags });
     };
 }
 
 export function selectCategory(categoryId) {
     return async dispatch => {
+        // TODO: why the fuck is this here and not in categories state?
         const response = await fetch(API_HOST + '/category?parentCategoryId=' + categoryId);
         const childCategories = await response.json();
 
@@ -63,6 +76,9 @@ export function updateSelectedTags(tagIds) {
 
 export function startDiscussion({ subject, categoryId, tagNames: tags }) {
     return async (dispatch, getState) => {
+
+        dispatch({ type: 'START_DISCUSSION' });
+
         const papiResponse = await fetch(PAPI_HOST + '/api/public/v1/meetings/start', {
             method: 'POST',
             headers: { authorization: PAPI_AUTH, 'Content-Type': 'application/json' },
@@ -79,6 +95,7 @@ export function startDiscussion({ subject, categoryId, tagNames: tags }) {
             body: JSON.stringify(body)
         });
 
+        dispatch({ type: 'START_DISCUSSION' });
         getDiscussions()(dispatch);
         window.open(PAPI_HOST + startMeetingPath);        
     };
