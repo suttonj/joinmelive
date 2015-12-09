@@ -5,18 +5,18 @@ export default class Discussion extends Component {
         return (
             <div
                 id={this.props.id}
-                onClick={this.props.join}
-                data-viewercode={this.props.viewerCode}
-                style={this.props.style}>
-                <img src={this.props.previewImageUrl} style={{width:200,height:200}} />
-                <div>{this.props.subject}</div>
+                style={{width:200,padding:'0 20px'}}>
+                <img
+                    src={this.props.previewImageUrl}
+                    style={{width:200,height:200,borderRadius:'50%',cursor:'pointer'}}
+                    onClick={this.props.join} />
+                <a onClick={this.props.join} style={{ color: 'white',cursor:'pointer'}}>{this.props.subject}</a>
             </div>
         );
     }
 }
 
 Discussion.propTypes = {
-    style: PropTypes.object.isRequired,
     id: PropTypes.number.isRequired,
     subject: PropTypes.string.isRequired,
     viewerCode: PropTypes.number.isRequired,

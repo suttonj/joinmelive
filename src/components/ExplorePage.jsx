@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import Select from 'react-select';
 
+import Header from './Explore/Header';
 import CategoriesList from './Explore/CategoriesList';
 import DiscussionsList from './Explore/DiscussionsList';
 import StartDiscussionModal from './Explore/StartDiscussionModal';
@@ -27,48 +27,41 @@ export class ExplorePage extends Component {
 
     render() {
         const { filtered: filteredDiscussions, filters: discussionFilters } = this.props.discussions;
+        const selectedCategoryName = discussionFilters.categoryId ?
+            this.props.categories.filter(cat => cat.id === discussionFilters.categoryId)[0].name :
+            '';
         return (
-            <div style={{display: 'flex',height:'100%'}}>                        
-                <div style={{flexGrow:1,border:'1px solid red'}}>
-                {this.props.ajax.getCategories ?
-                    <LoadingSpinner /> :
-                    <CategoriesList 
-                        categories={this.props.categories}
-                        selectedCategoryId={discussionFilters.categoryId}
-                        selectCategory={this.props.selectCategory} />
-                }
-                </div>                
-                <div style={{flexGrow:4,flexBasis:0,display:'flex',flexDirection:'column'}}>
-                    <div style={{border:'1px solid green',display:'flex'}}>
-                        <input
-                            type="text"
-                            placeholder="Search"
-                            onKeyUp={ e => this.props.search(e.target.value) } />
-                        <div>
-                        {this.props.ajax.getTags ?
-                            <LoadingSpinner /> :
-                            <Select
-                                multi={true}
-                                value={discussionFilters.tagIds.join(',')}
-                                delimiter=","
-                                options={this.props.tags.map(tag => ({ value: tag.id, label: tag.name }))}
-                                onChange={this.props.updateSelectedTags} />
-                        }
-                        </div>                        
-                    </div>
-                    <div style={{flexGrow:1,border:'1px solid blue'}}>
-                    {this.props.ajax.getDiscussions ?
-                        <LoadingSpinner /> :
-                        <DiscussionsList 
-                            discussions={filteredDiscussions}
-                            startDiscussion={ () => this.setState({ isModalOpen: true }) }
-                            joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
-                    }
-                    </div> 
+            <div style={styles.container}>
+                
+                <Header
+                    search={this.props.search}
+                    tags={this.props.tags}
+                    updateSelectedTags={this.props.updateSelectedTags}
+                    selectedTagIds={discussionFilters.tagIds}
+                    categories={this.props.categories}
+                    selectedCategoryId={discussionFilters.categoryId}
+                    selectCategory={this.props.selectCategory} 
+                />
+
+                <div style={{margin:'auto'}}>
+                    Let's talk about&nbsp;
+                    <span contentEditable="true" style={{backgroundColor:'transparent', border:'none',borderBottom:'2px solid #9bd000',outlineWidth:0,color:'white',padding:'3px 20px'}} />
+                    <button onClick={ () => this.setState({ isModalOpen: true }) }>Discuss</button>
                 </div>
+
+                <div style={styles.discussionsContainer}>
+                {this.props.ajax.getDiscussions ?
+                    <LoadingSpinner /> :
+                    <DiscussionsList 
+                        categoryName={selectedCategoryName}
+                        discussions={filteredDiscussions}
+                        joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
+                }
+                </div> 
+
                 <Modal
                     isOpen={this.state.isModalOpen}
-                    style={{content:{width:500,height:500}}}
+                    style={styles.modal}
                     onRequestClose={ () => this.setState({ isModalOpen: false }) }>
                 {this.state.isModalOpen && 
                     <StartDiscussionModal
@@ -80,6 +73,7 @@ export class ExplorePage extends Component {
                         close={ () => this.setState({ isModalOpen: false }) } />
                 }
                 </Modal>
+
             </div>
         );
     }
@@ -89,3 +83,38 @@ export default connect(
     state => state,
     actionCreators
 )(ExplorePage)
+
+const styles = {
+    container: {
+        display: 'flex',
+        flexDirection:'column',
+        height:'100%',
+        backgroundColor:'#444444',
+        color:'white',
+    },
+    discussionsContainer: {
+        position:'relative',
+        minHeight: 200,
+        width: 1000,
+        margin: 'auto',
+        marginTop: 25,
+        backgroundColor:'#2b2b2b',
+        borderRadius:5,
+        boxShadow:'0 0 11px 1px #111',
+        overflow: 'scroll',
+    },
+    modal: {
+        content:{
+            width:500,
+            height:500,
+        },
+    }, 
+    button: {
+        backgroundColor:'#FC8E26',
+        color:'white',
+        border:'none',
+        borderRadius:8,
+        padding:'12px 30px',
+        cursor:'pointer',
+    },
+};
