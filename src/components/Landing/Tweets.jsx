@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Tweet from './Tweet';
+import Infinite from 'react-infinite';
 
 const styles = {
     item: {

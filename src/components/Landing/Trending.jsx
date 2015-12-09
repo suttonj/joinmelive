@@ -56,10 +56,6 @@ export default class Trending extends Component {
 	    let self = this;
 	}
 
-	componentDidUpdate() {
-		this.setState({trends: this.props.trends});
-	}
-
 	render () {
 		var trendList = this.props.trends.map((trend, index) => {
 	        return (

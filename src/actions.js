@@ -2,6 +2,7 @@ import {
     API_HOST,
     PAPI_HOST,
     PAPI_AUTH,
+    SERVER
 } from './constants';
 
 export function getCategories() {
@@ -51,6 +52,20 @@ export function getTags() {
 
         dispatch({ type: 'GET_TAGS' });
         dispatch({ type: 'UPDATE_TAGS', tags });
+    };
+}
+
+export function getTrends() {
+    return async dispatch => {
+
+        dispatch({ type: 'GET_TRENDS' });
+
+        const response = await fetch(SERVER + '/trends');
+        var trends = await response.json();
+        trends = trends[0].trends;
+
+        dispatch({ type: 'GET_TRENDS' });
+        dispatch({ type: 'UPDATE_TRENDS', trends });
     };
 }
 

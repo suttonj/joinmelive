@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Tweets from './Tweets';
-
-const apiUrl = 'http://localhost:3030/';
+import Infinie from 'react-infinite';
 
 const styles = {
     container: {
@@ -25,7 +24,6 @@ export default class Trending extends Component {
         };
 
         this.addTweet = this.addTweet.bind(this);
-        this.showNewTweets = this.showNewTweets.bind(this);
     }
 
     addTweet(tweet) {
@@ -35,33 +33,6 @@ export default class Trending extends Component {
 	    updated.unshift(tweet);
 
 	    this.setState({ tweets: updated, count: count });
-	}
-
-	showNewTweets() {
-	    let updated = this.state.tweets;
-
-	    updated.forEach( (tweet) => {
-	      tweet.active = true;
-	    });
-
-	    this.setState({tweets: updated, count: 0});
-	}
-
-	componentWillMount() {
-		let self = this;
-		let request = new XMLHttpRequest();
-
-	    request.open('GET', apiUrl, true);
-	    request.onload = () => {
-
-	    	if (request.status >= 200 && request.status < 400){
-	    		let tweets = JSON.parse(request.responseText).tweets;
-	    		tweets = JSON.parse(tweets);
-			    self.setState({tweets: tweets});
-			}
-		}
-
-	    request.send();
 	}
 
 	componentDidMount() {

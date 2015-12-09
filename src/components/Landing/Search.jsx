@@ -6,9 +6,6 @@ export default class Search extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			suggestions: props.suggestions
-		};
 
 		this.getSuggestions = this.getSuggestions.bind(this);
 		this.renderSuggestion = this.renderSuggestion.bind(this);
@@ -16,7 +13,6 @@ export default class Search extends Component {
 	}
 
 	componentDidUpdate() {
-		this.setState({ suggestions: this.props.suggestions });
 		this.fuse = new Fuse(this.props.suggestions, { keys: ["name"] });
 	}
 

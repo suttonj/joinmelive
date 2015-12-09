@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 
-import InfiniteList from './Landing/Infinite';
 import Trending from './Landing/Trending';
 import Search from './Landing/Search';
 import './Landing/Landing.css';
@@ -58,32 +57,15 @@ export default class LandingPage extends Component {
         super(props);
 
         this.state = {
-            trends: [],
             isModalOpen: false
         };
 
         this.showDiscussions = this.showDiscussions.bind(this);
 
+        this.props.getTrends();
         this.props.getCategories();
         this.props.getDiscussions();
         this.props.getTags();
-    }
-
-    componentWillMount() {
-        let self = this;
-        let request = new XMLHttpRequest();
-
-        request.open('GET', apiUrl + 'trends', true);
-        request.onload = () => {
-
-            if (request.status >= 200 && request.status < 400){
-                let trends = JSON.parse(request.responseText).trends;
-                trends = JSON.parse(trends)[0].trends;
-                self.setState({trends: trends});
-            }
-        }
-
-        request.send();
     }
 
     showDiscussions(query) {
@@ -98,10 +80,10 @@ export default class LandingPage extends Component {
             <div className="landing" style={styles.container}>
                 <div style={styles.innerContainer}>
                     <img src="img/jm-logo.svg" style={styles.img} />
-                    <Search suggestions={this.state.trends} showDiscussions={ this.showDiscussions } />
+                    <Search suggestions={this.props.trends} showDiscussions={ this.showDiscussions } />
                     <div style={styles.textContainer}>
                         <Trending 
-                            trends={this.state.trends}
+                            trends={this.props.trends}
                             showDiscussions={ this.showDiscussions } 
                             joinDiscussion={ params => this.props.joinDiscussion(params) } />
                     </div>

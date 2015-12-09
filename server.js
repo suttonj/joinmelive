@@ -25,5 +25,5 @@ var server = http.createServer(app).listen(port, function() {
 
 var io = require('socket.io').listen(server);
 
-var stream = twitter.stream('statuses/filter',{ track: '#grammy'});
+var stream = twitter.stream('statuses/filter',{ track: '#trump'});
 streamHandler(stream, io);
