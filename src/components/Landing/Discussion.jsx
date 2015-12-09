@@ -1,19 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 
+const styles = {
+
+}
 export default class Discussion extends Component {
     render() {
+        let randomUsers = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
         return (
             <div
                 id={this.props.id}
-                onClick={this.props.join}
+                className='discussionItem'
                 data-viewercode={this.props.viewerCode}
                 style={this.props.style}>
                 <div style={{padding:10}}>
-                    <img src={this.props.previewImageUrl} style={{width:120,height:120}} />
+                    <img src={this.props.previewImageUrl} style={{width:80,height:80}} />
                 </div>
-                <div style={{padding:10, width:360}}>
+                <div style={{padding:10, width:300, margin:20}}>
                     <h4>{this.props.subject}</h4>
-                    <h4>{this.props.viewerCode}</h4>
+                    <h4>{randomUsers} Talking Heads</h4>
+                </div>
+                <div style={{padding:10, width: 200}}>
+                    <button className='joinButton' onClick={this.props.join}>Join</button>
                 </div>
             </div>
         );

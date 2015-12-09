@@ -85,8 +85,8 @@ export default class LandingPage extends Component {
     }
 
     showDiscussions(query) {
-        console.log(query);
-        this.props.search("baseball");//change to query
+        query = (typeof query === 'string' ? query : query.name);
+        this.props.search(query.name);
         this.setState({ isModalOpen: true });
     }
 
@@ -96,7 +96,7 @@ export default class LandingPage extends Component {
             <div className="landing" style={styles.container}>
                 <div style={styles.innerContainer}>
                     <img src="img/jm-logo.svg" style={styles.img} />
-                    <Search suggestions={this.state.trends}/>
+                    <Search suggestions={this.state.trends} showDiscussions={ this.showDiscussions } />
                     <div style={styles.textContainer}>
                         <Trending 
                             trends={this.state.trends}

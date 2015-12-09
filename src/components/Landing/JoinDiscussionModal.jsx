@@ -14,12 +14,12 @@ export default class JoinDiscussionModal extends Component {
     render() {
         return (
             <div>
+                <div style={{position:'absolute',top:5,right:5,cursor:'pointer'}} onClick={this.props.close}><span style={{fontSize:12}}>x</span></div>
                 <h3 style={{margin:'0 auto', textAlign:'center'}}>Join the <strong>{this.props.query}</strong> discussion</h3>
                 <DiscussionList 
                         discussions={this.props.discussions}
-                        startDiscussion={ () => this.setState({ isModalOpen: true }) } //change
+                        startDiscussion={ this.props.startDiscussion }
                         joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
-                <button onClick={this.props.close}>Cancel</button>
             </div>
         );
     }

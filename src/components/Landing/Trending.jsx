@@ -19,6 +19,13 @@ const styles = {
     	fontSize: 16,
     	fontWeight: 'bold',
     	padding: 8,
+    	margin:10
+    },
+    trendingTopics: {
+    	padding: 2, 
+    	cursor: 'pointer',
+    	textIndent: 15,
+    	color: '#F88300'
     }
 };
 
@@ -29,7 +36,7 @@ class Topic extends Component {
 
     render() {
         return (
-            <a style={{padding: 3, cursor: 'pointer'}} 
+            <a style={styles.trendingTopics} 
             	onClick={this.props.showDiscussions.bind(this, this.props.name)}>{ this.props.name }</a>
         );
     }

@@ -28,8 +28,7 @@ export function getDiscussions({ categoryId=null, tagIds=[], maxResults=10000000
         const queryString = `?categoryId=${categoryId}&tagIds=${tagIds.join(',')}&maxResults=${maxResults}&q=${q}`;
         const response = await fetch(API_HOST + '/discussion' + queryString);
         var discussions = await response.json();
-        discussions = JSON.parse(discussions.discussions);
-        dispatch({ type: 'UPDATE_DISCUSSIONS', discussions }); //dont commit
+        dispatch({ type: 'UPDATE_DISCUSSIONS', discussions });
     };
 }
 

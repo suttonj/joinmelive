@@ -15,30 +15,39 @@ const styles = {
     },
     discussionItem: {
         padding: '10px 20px',
-        margin: '10px 0',
-        height: 140,
+        margin: '5px 0',
+        height: 100,
         display: 'flex',
         flexDirection: 'row',
         border: '2px solid #ddd',
         borderRadius: '4px',
         backgroundColor: "#eee"
+    },
+    noDiscussions: {
+        fontSize:14,
+        margin: '0 auto'
     }
 };
 
 export default class DiscussionList extends Component {
     render() {
+        let discussions = this.props.discussions.map(disc => 
+            <Discussion
+                key={disc.id}
+                {...disc}
+                style={styles.discussionItem}
+                join={ () => this.props.joinDiscussion(disc.viewerCode) } />
+        );
+        if (!discussions.length) {
+            discussions = ( <div style={styles.noDiscussions}>No one is talking about this right now. Be a leader!</div> );
+        }
+
         return (
             <div style={styles.container}>
                 <div style={styles.discussionsContainer}>
-                {this.props.discussions.map(disc => 
-                    <Discussion
-                        key={disc.id}
-                        {...disc}
-                        style={styles.discussionItem}
-                        join={ () => this.props.joinDiscussion(disc.viewerCode) } />
-                )}
-                    <div>
-                        <button onClick={this.props.startDiscussion}>Start your own discussion</button> 
+                    {discussions}
+                    <div style={{margin: '0 auto',padding:10}}>
+                        <button className="startButton" onClick={this.props.startDiscussion}>Start your own discussion</button> 
                     </div>
                 </div>
             </div>

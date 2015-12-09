@@ -18,7 +18,7 @@ var trending = [
   }
 ];
 
-var discussions = require('./discussions.json');
+var discussions = require('./discussions.json'); //mock data if server is down
 
 module.exports = {
 
@@ -39,7 +39,7 @@ module.exports = {
     });
   },
 
-  //DO NOT CHECK IN
+  // only use for mock data
   discussions: function(req, res) {
     var result = discussions.discussions;
     if (req.query.q) {
