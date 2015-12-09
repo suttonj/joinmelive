@@ -18,6 +18,8 @@ var trending = [
   }
 ];
 
+var discussions = require('./discussions.json');
+
 module.exports = {
 
   index: function(req, res) {
@@ -34,6 +36,20 @@ module.exports = {
       } else {
         res.send({trends: trends, status: true});
       }
+    });
+  },
+
+  //DO NOT CHECK IN
+  discussions: function(req, res) {
+    var result = discussions.discussions;
+    if (req.query.q) {
+      result = result.filter(function(disc) {
+        return disc.subject.indexOf(req.query.q) > -1;
+      });
+    }
+
+    res.send({
+      discussions: JSON.stringify(result)
     });
   }
 

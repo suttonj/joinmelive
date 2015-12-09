@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
+import DiscussionList from './DiscussionList';
+
 export default class JoinDiscussionModal extends Component {
     constructor(props) {
         super(props);
@@ -13,13 +15,11 @@ export default class JoinDiscussionModal extends Component {
         return (
             <div>
                 <h2>Join the discussion:</h2>
-                <label>
-                    Categories:
-                </label>
-                <ul>
-
-                </ul>
-                <button onClick={ () => this.props.start(this.state) }>Start</button>
+                <DiscussionList 
+                        style={{flexGrow:1,border:'1px solid blue'}}
+                        discussions={this.props.discussions}
+                        startDiscussion={ () => this.setState({ isModalOpen: true }) } //change
+                        joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
                 <button onClick={this.props.close}>Cancel</button>
             </div>
         );
@@ -27,11 +27,11 @@ export default class JoinDiscussionModal extends Component {
 }
 
 JoinDiscussionModal.propTypes = {
-    // categoryId: PropTypes.number,
-    // categories: PropTypes.arrayOf(PropTypes.shape({
-    //     id: PropTypes.number.isRequired,
-    //     name: PropTypes.string.isRequired,
-    // })).isRequired,
+    categoryId: PropTypes.number,
+    categories: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+    })),
     tags: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,

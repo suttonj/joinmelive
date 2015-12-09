@@ -27,9 +27,9 @@ export function getDiscussions({ categoryId=null, tagIds=[], maxResults=10000000
     return async dispatch => {
         const queryString = `?categoryId=${categoryId}&tagIds=${tagIds.join(',')}&maxResults=${maxResults}&q=${q}`;
         const response = await fetch(API_HOST + '/discussion' + queryString);
-        const discussions = await response.json();
-        
-        dispatch({ type: 'UPDATE_DISCUSSIONS', discussions });
+        var discussions = await response.json();
+        discussions = JSON.parse(discussions.discussions);
+        dispatch({ type: 'UPDATE_DISCUSSIONS', discussions }); //dont commit
     };
 }
 
@@ -87,9 +87,4 @@ export function startDiscussion({ subject, categoryId, tagNames: tags }) {
 export function joinDiscussion(viewerCode) {
     window.open('https://jmmaster.dev.3amlabs.net/' + viewerCode + '?suppressSticky=true');
     return { type: 'JOIN_DISCUSSION', viewerCode };
-}
-
-export function joinDiscussion({ discussionId }) {
-    console.log('Joining:', discussionId);
-    return { type: 'JOIN_DISCUSSION' };
 }

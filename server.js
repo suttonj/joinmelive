@@ -17,6 +17,7 @@ var twitter = new twit(config.twitter);
 
 app.get('/', routes.index);
 app.get('/trends', routes.trends);
+app.get('/discussion', routes.discussions);
 
 var server = http.createServer(app).listen(port, function() {
   console.log('Express server listening on port ' + port);

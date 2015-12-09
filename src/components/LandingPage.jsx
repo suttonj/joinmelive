@@ -73,6 +73,7 @@ export default class LandingPage extends Component {
 
     showDiscussions(query) {
         console.log(query);
+        this.props.search("baseball");//change to query
         this.setState({ isModalOpen: true });
     }
 
@@ -90,13 +91,16 @@ export default class LandingPage extends Component {
                     </div>
                     <Modal
                         isOpen={this.state.isModalOpen}
-                        style={{content:{width:250,height:250}}}
+                        style={{content:{width:600,height:400}}}
                         onRequestClose={ () => this.setState({ isModalOpen: false }) }>
                     {this.state.isModalOpen && 
                         <JoinDiscussionModal
                             { ...discussionFilters }
+                            discussions={filteredDiscussions}
+                            categories={this.props.categories}
+                            tags={this.props.tags}
+                            start={ params => { this.props.startDiscussion(params); this.setState({ isModalOpen: false }) } }
                             join={ params => this.props.joinDiscussion(params) }
-                            start={ params => this.props.startDiscussion(params) }
                             close={ () => this.setState({ isModalOpen: false }) } />
                     }
                     </Modal>
