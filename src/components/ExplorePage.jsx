@@ -38,6 +38,7 @@ export class ExplorePage extends Component {
                         <input
                             type="text"
                             placeholder="Search"
+                            style={{flexGrow:1}}
                             onKeyUp={ e => this.props.search(e.target.value) } />
                         <Select
                             multi={true}
