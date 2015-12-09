@@ -40,7 +40,14 @@ export class ExplorePage extends Component {
                     selectedTagIds={discussionFilters.tagIds}
                     categories={this.props.categories}
                     selectedCategoryId={discussionFilters.categoryId}
-                    selectCategory={this.props.selectCategory} />
+                    selectCategory={this.props.selectCategory} 
+                />
+
+                <div style={{margin:'auto'}}>
+                    Let's talk about&nbsp;
+                    <span contentEditable="true" style={{backgroundColor:'transparent', border:'none',borderBottom:'2px solid #9bd000',outlineWidth:0,color:'white',padding:'3px 20px'}} />
+                    <button onClick={ () => this.setState({ isModalOpen: true }) }>Discuss</button>
+                </div>
 
                 <div style={styles.discussionsContainer}>
                 {this.props.ajax.getDiscussions ?
@@ -48,7 +55,6 @@ export class ExplorePage extends Component {
                     <DiscussionsList 
                         categoryName={selectedCategoryName}
                         discussions={filteredDiscussions}
-                        startDiscussion={ () => this.setState({ isModalOpen: true }) }
                         joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
                 }
                 </div> 
@@ -102,5 +108,13 @@ const styles = {
             width:500,
             height:500,
         },
+    }, 
+    button: {
+        backgroundColor:'#FC8E26',
+        color:'white',
+        border:'none',
+        borderRadius:8,
+        padding:'12px 30px',
+        cursor:'pointer',
     },
 };

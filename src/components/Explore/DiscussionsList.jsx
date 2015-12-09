@@ -8,13 +8,6 @@ export default class DiscussionsList extends Component {
             <div>
                 <div>
                     <div>{this.props.categoryName}</div>
-                    <div>
-                        <button
-                            style={styles.button}
-                            onClick={this.props.startDiscussion}>
-                            Start your own discussion!
-                        </button> 
-                    </div>
                 </div>
                 <div style={{display:'flex',flexWrap:'wrap',justifyContent:'flex-start'}}>
                 {this.props.discussions.map(disc => 
@@ -37,17 +30,5 @@ DiscussionsList.propTypes = {
         viewerCode: PropTypes.number.isRequired,
         previewImageUrl: PropTypes.string.isRequired,
     })).isRequired,
-    startDiscussion: PropTypes.func.isRequired,
     joinDiscussion: PropTypes.func.isRequired,
-};
-
-const styles = {
-    button: {
-        backgroundColor:'#FC8E26',
-        color:'white',
-        border:'none',
-        borderRadius:8,
-        padding:'12px 30px',
-        cursor:'pointer',
-    },
 };
