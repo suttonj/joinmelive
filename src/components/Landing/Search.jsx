@@ -12,6 +12,7 @@ export default class Search extends Component {
 
 		this.getSuggestions = this.getSuggestions.bind(this);
 		this.renderSuggestion = this.renderSuggestion.bind(this);
+		this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
 	}
 
 	componentDidUpdate() {
@@ -51,6 +52,11 @@ export default class Search extends Component {
 		return suggestionObj.name;
 	}
 
+	onSuggestionSelected(suggestion, event) {
+	  	event.preventDefault();
+	  	this.props.showDiscussions(suggestion);
+	}
+
 	render() {
 		const inputAttributes = {
 	      	id: 'trends-renderer',
@@ -62,6 +68,7 @@ export default class Search extends Component {
 			      	suggestions={this.getSuggestions}
 			      	suggestionRenderer={this.renderSuggestion}
 			      	suggestionValue={this.getSuggestionValue}
+			      	onSuggestionSelected={this.onSuggestionSelected}
                     inputAttributes={this.inputAttributes}
                     scrollBar={true} />
 			</div>

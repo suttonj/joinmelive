@@ -18,6 +18,8 @@ var trending = [
   }
 ];
 
+var discussions = require('./discussions.json'); //mock data if server is down
+
 module.exports = {
 
   index: function(req, res) {
@@ -34,6 +36,20 @@ module.exports = {
       } else {
         res.send({trends: trends, status: true});
       }
+    });
+  },
+
+  // only use for mock data
+  discussions: function(req, res) {
+    var result = discussions.discussions;
+    if (req.query.q) {
+      result = result.filter(function(disc) {
+        return disc.subject.indexOf(req.query.q) > -1;
+      });
+    }
+
+    res.send({
+      discussions: JSON.stringify(result)
     });
   }
 
