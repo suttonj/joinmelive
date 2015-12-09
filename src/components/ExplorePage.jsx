@@ -6,6 +6,7 @@ import Select from 'react-select';
 import CategoriesList from './Explore/CategoriesList';
 import DiscussionsList from './Explore/DiscussionsList';
 import StartDiscussionModal from './Explore/StartDiscussionModal';
+import LoadingSpinner from './Explore/LoadingSpinner';
 
 import * as actionCreators from '../actions';
 
@@ -27,30 +28,43 @@ export class ExplorePage extends Component {
     render() {
         const { filtered: filteredDiscussions, filters: discussionFilters } = this.props.discussions;
         return (
-            <div style={{display: 'flex',height:'100%'}}>
-                <CategoriesList 
-                    style={{flexGrow:1,border:'1px solid red'}}
-                    categories={this.props.categories}
-                    selectedCategoryId={discussionFilters.categoryId}
-                    selectCategory={this.props.selectCategory} />
+            <div style={{display: 'flex',height:'100%'}}>                        
+                <div style={{flexGrow:1,border:'1px solid red'}}>
+                {this.props.ajax.getCategories ?
+                    <LoadingSpinner /> :
+                    <CategoriesList 
+                        categories={this.props.categories}
+                        selectedCategoryId={discussionFilters.categoryId}
+                        selectCategory={this.props.selectCategory} />
+                }
+                </div>                
                 <div style={{flexGrow:4,flexBasis:0,display:'flex',flexDirection:'column'}}>
                     <div style={{border:'1px solid green',display:'flex'}}>
                         <input
                             type="text"
                             placeholder="Search"
                             onKeyUp={ e => this.props.search(e.target.value) } />
-                        <Select
-                            multi={true}
-                            value={discussionFilters.tagIds.join(',')}
-                            delimiter=","
-                            options={this.props.tags.map(tag => ({ value: tag.id, label: tag.name }))}
-                            onChange={this.props.updateSelectedTags} />
+                        <div>
+                        {this.props.ajax.getTags ?
+                            <LoadingSpinner /> :
+                            <Select
+                                multi={true}
+                                value={discussionFilters.tagIds.join(',')}
+                                delimiter=","
+                                options={this.props.tags.map(tag => ({ value: tag.id, label: tag.name }))}
+                                onChange={this.props.updateSelectedTags} />
+                        }
+                        </div>                        
                     </div>
-                    <DiscussionsList 
-                        style={{flexGrow:1,border:'1px solid blue'}}
-                        discussions={filteredDiscussions}
-                        startDiscussion={ () => this.setState({ isModalOpen: true }) }
-                        joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
+                    <div style={{flexGrow:1,border:'1px solid blue'}}>
+                    {this.props.ajax.getDiscussions ?
+                        <LoadingSpinner /> :
+                        <DiscussionsList 
+                            discussions={filteredDiscussions}
+                            startDiscussion={ () => this.setState({ isModalOpen: true }) }
+                            joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
+                    }
+                    </div> 
                 </div>
                 <Modal
                     isOpen={this.state.isModalOpen}
