@@ -60,8 +60,24 @@ function tags(state=[], action) {
     }
 }
 
+function ajax(state={getCategories:false,getDiscussions:false,getTags:false,startDiscussion:false}, action) {
+    switch (action.type) {
+        case 'GET_CATEGORIES':
+            return { ...state, getCategories: !state.getCategories };
+        case 'GET_DISCUSSIONS':
+            return { ...state, getDiscussions: !state.getDiscussions };
+        case 'GET_TAGS':
+            return { ...state, getTags: !state.getTags };
+        case 'START_DISCUSSION':
+            return { ...state, startDiscussion: !state.startDiscussion };
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     categories,
     discussions,
     tags,
+    ajax,
 });

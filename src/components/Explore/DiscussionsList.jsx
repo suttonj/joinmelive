@@ -5,7 +5,7 @@ import Discussion from './Discussion';
 export default class DiscussionsList extends Component {
     render() {
         return (
-            <div style={this.props.style}>
+            <div>
                 <div>DiscussionsList</div>
                 <div style={{display:'flex',flexWrap:'wrap'}}>
                 {this.props.discussions.map(disc => 
@@ -25,7 +25,6 @@ export default class DiscussionsList extends Component {
 }
 
 DiscussionsList.propTypes = {
-    style: PropTypes.object.isRequired,
     discussions: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         subject: PropTypes.string.isRequired,

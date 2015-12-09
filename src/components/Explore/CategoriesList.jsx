@@ -5,12 +5,16 @@ export default class CategoriesList extends Component {
     constructor(props) {
         super(props);
 
-        this.onClickParentCategory = this.onClickParentCategory.bind(this);
+        this.selectCategory = this.selectCategory.bind(this);
         this.isMenuItemOpen = this.isMenuItemOpen.bind(this);
     }
 
-    onClickParentCategory(id) {
-        this.props.selectCategory(id);
+    selectCategory(id) {
+        if (this.props.selectedCategoryId !== id) {
+            this.props.selectCategory(id);
+        } else {
+            this.props.selectCategory(null);
+        }
     }
 
     isMenuItemOpen(category) {
@@ -20,14 +24,14 @@ export default class CategoriesList extends Component {
 
     render() {
         return (
-            <div style={this.props.style}>
+            <div>
             {this.props.categories.map(category => 
                 <Category
                     key={category.id}
                     { ...category }
                     selectedCategoryId={this.props.selectedCategoryId}
                     isOpen={this.isMenuItemOpen(category)}
-                    onClick={ categoryId => this.props.selectCategory(categoryId) } />
+                    onClick={ categoryId => this.selectCategory(categoryId) } />
             )}
             </div>
         );
