@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import Select from 'react-select';
 
 import Hamburger from './Hamburger';
 import CategoriesList from './CategoriesList';
-import Search from './Search';
 
 export default class Header extends Component {
     constructor(props) {
@@ -19,46 +19,28 @@ export default class Header extends Component {
         return (
             <div style={styles.container}>
                 <div style={styles.innerContainer}>
+
                     <div style={styles.logoContainer}>
                         <img src='img/jm-logo.svg' style={styles.logo} />
                     </div>
-                    <div
-                        style={{ ...styles.searchContainer, backgroundColor: this.state.isSearchHovered && '#888888' }}
-                        onMouseOver={ () => this.setState({ isSearchHovered: true }) }
-                        onMouseOut={ () => this.setState({ isSearchHovered: false }) }
-                        onClick={ () => this.setState({ isSearchShown: true }) }>
-                    {this.state.isSearchShown ?
-                        <Search {...this.props } onBlur={ () => this.setState({ isSearchShown: false })} /> :
-                        <div style={styles.searchPlaceholder}>Search<div style={styles.searchIcon} /></div>
-                    }
+
+                    <div style={{margin:'auto'}}>
+                        Let's talk about&nbsp;
+                        <span 
+                            contentEditable="true" 
+                            style={{backgroundColor:'transparent', border:'none',borderBottom:'2px solid #9bd000',outlineWidth:0,color:'white',padding:'3px 20px'}}
+                            onKeyUp={ e => this.props.search(e.target.innerHTML) } />
+                        &nbsp;.
                     </div>
-                    <div
-                        style={{ ...styles.hamburgerContainer, backgroundColor: this.state.isHamburgerHovered && '#888888' }}
-                        onMouseOver={ () => this.setState({ isHamburgerHovered: true }) }
-                        onMouseOut={ () => this.setState({ isHamburgerHovered: false }) }>
-                        <Hamburger>
-                            <CategoriesList 
-                                categories={this.props.categories}
-                                selectedCategoryId={this.props.selectedCategoryId}
-                                selectCategory={this.props.selectCategory} />
-                        </Hamburger>
-                    </div>                        
+                
+                    <div>
+                        Start your own <button style={styles.button}>Discussion</button>
+                    </div>
                 </div>
             </div>
         );
     }
 }
-
-Header.propTypes = {
-    search: PropTypes.func.isRequired,
-    selectedCategoryId: PropTypes.number,
-    selectedTagIds: PropTypes.arrayOf(PropTypes.number.isRequired),
-    tags: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-    })),
-    updateSelectedTags: PropTypes.func.isRequired,
-};
 
 const styles = {
     container: {
@@ -105,5 +87,14 @@ const styles = {
         top: -7,
         right: 12,
         background: 'url(//s.imgur.com/images/site-sprite.png?1430420391) no-repeat scroll -495px -249px',
+    },
+    button: {
+        backgroundColor:'#FC8E26',
+        color:'white',
+        border:'none',
+        borderRadius:8,
+        padding:'12px 30px',
+        cursor:'pointer',
+        outlineWidth: 0,
     },
 };

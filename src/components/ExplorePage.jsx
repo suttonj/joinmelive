@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import Modal from 'react-modal';
 
 import Header from './Explore/Header';
-import CategoriesList from './Explore/CategoriesList';
 import DiscussionsList from './Explore/DiscussionsList';
 import StartDiscussionModal from './Explore/StartDiscussionModal';
 import LoadingSpinner from './Explore/LoadingSpinner';
+import ActiveFilters from './Explore/ActiveFilters';
 
 import * as actionCreators from '../actions';
 
@@ -43,41 +43,26 @@ export class ExplorePage extends Component {
                     selectCategory={this.props.selectCategory} 
                 />
 
-                <div style={{margin:'auto'}}>
-                    Let's talk about&nbsp;
-                    <span contentEditable="true" style={{backgroundColor:'transparent', border:'none',borderBottom:'2px solid #9bd000',outlineWidth:0,color:'white',padding:'3px 20px'}} />
-                    <button onClick={ () => this.setState({ isModalOpen: true }) }>Discuss</button>
-                </div>
+                <ActiveFilters
+                    discussionCount={filteredDiscussions.length}
+                    query={discussionFilters.query}
+                    categories={this.props.categories}
+                    selectedCategoryId={discussionFilters.categoryId}
+                    selectCategory={this.props.selectCategory} />
 
                 <div style={styles.discussionsContainer}>
                 {this.props.ajax.getDiscussions ?
                     <LoadingSpinner /> :
                     <DiscussionsList 
-                        categoryName={selectedCategoryName}
                         discussions={filteredDiscussions}
                         joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
                 }
                 </div> 
 
-                <Modal
-                    isOpen={this.state.isModalOpen}
-                    style={styles.modal}
-                    onRequestClose={ () => this.setState({ isModalOpen: false }) }>
-                {this.state.isModalOpen && 
-                    <StartDiscussionModal
-                        { ...discussionFilters }
-                        tagNames={discussionFilters.tagIds.map(id => this.props.tags.filter(tag => tag.id === id)[0].name)}
-                        categories={this.props.categories}
-                        tags={this.props.tags}
-                        start={ params => { this.props.startDiscussion(params); this.setState({ isModalOpen: false }) } }
-                        close={ () => this.setState({ isModalOpen: false }) } />
-                }
-                </Modal>
-
             </div>
         );
-    }
-}
+    
+}}
 
 export default connect(
     state => state,
@@ -109,12 +94,4 @@ const styles = {
             height:500,
         },
     }, 
-    button: {
-        backgroundColor:'#FC8E26',
-        color:'white',
-        border:'none',
-        borderRadius:8,
-        padding:'12px 30px',
-        cursor:'pointer',
-    },
 };

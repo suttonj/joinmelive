@@ -6,9 +6,6 @@ export default class DiscussionsList extends Component {
     render() {
         return (
             <div style={{padding:10}}>
-                <div>
-                    <div>{this.props.categoryName}</div>
-                </div>
                 <div style={{display:'flex',flexWrap:'wrap',justifyContent:'flex-start'}}>
                 {this.props.discussions.map(disc => 
                     <Discussion
