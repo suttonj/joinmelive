@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
+import { Link } from 'react-router';
 
 import Trending from './Landing/Trending';
 import Search from './Landing/Search';
@@ -30,11 +31,13 @@ const styles = {
         opacity: '0.9',
         color: '#eee',
         borderRadius: 5,
-        width: 480
+        width: 480,
+        marginBottom: 20
     },
     img: {
         width: 500,
         height: 'auto',
+        padding: '20px 0 0 0'
     },
     modal: {
         content: {
@@ -70,7 +73,7 @@ export default class LandingPage extends Component {
 
     showDiscussions(query) {
         query = (typeof query === 'string' ? query : query.name);
-        this.props.search('baseball');//query.name);
+        this.props.search(query.name);
         this.setState({ isModalOpen: true });
     }
 
@@ -80,6 +83,7 @@ export default class LandingPage extends Component {
             <div className="landing" style={styles.container}>
                 <div style={styles.innerContainer}>
                     <img src="img/jm-logo.svg" style={styles.img} />
+                    <span><Link to='explore'>Explore Conversations</Link></span>
                     <Search suggestions={this.props.trends} showDiscussions={ this.showDiscussions } />
                     <div style={styles.textContainer}>
                         <Trending 

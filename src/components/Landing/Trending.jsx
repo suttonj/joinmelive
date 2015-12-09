@@ -13,12 +13,13 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         width: 240,
-    	alignItems: 'flex-start'
+    	alignItems: 'flex-start',
+    	margin:10
     },
     label: {
     	fontSize: 16,
     	fontWeight: 'bold',
-    	padding: 8,
+    	paddingBottom: 8,
     	margin:10
     },
     trendingTopics: {

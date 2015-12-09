@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Tweets from './Tweets';
 import Infinie from 'react-infinite';
 
+const apiUrl = 'http://localhost:3030/';
+
 const styles = {
     container: {
         display: 'flex',
