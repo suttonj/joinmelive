@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 import Tweet from './Tweet';
 
+const styles = {
+    item: {
+        listStyleType: 'none',
+        border: '1px solid #777',
+        borderRadius: 5,
+        padding: 15,
+        height: 30,
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        marginBottom: 7
+    }
+}
+
 export default class Tweets extends Component {
     
     constructor(props) {
@@ -31,7 +45,10 @@ export default class Tweets extends Component {
         setTimeout(() => {
             const elements = self.state.tweets.map((tweet) => {
                 return (
-                    <Tweet key={tweet.twid} tweet={tweet} />
+                    <Tweet key={tweet.twid} 
+                        tweet={tweet} 
+                        style={styles.item} 
+                        join={ () => this.props.joinDiscussion(412424124) }/>
                 )
             });
             self.setState({
@@ -49,7 +66,10 @@ export default class Tweets extends Component {
         if (this.props.tweets) {
             var content = this.props.tweets.map((tweet) => {
                 return (
-                    <Tweet key={tweet.twid} tweet={tweet} />
+                    <Tweet key={tweet.twid} 
+                        tweet={tweet} 
+                        style={styles.item} 
+                        join={ () => this.props.joinDiscussion(688339221) } />
                 )
             });
         } else {

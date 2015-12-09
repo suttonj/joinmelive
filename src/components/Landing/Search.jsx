@@ -60,7 +60,14 @@ export default class Search extends Component {
 	render() {
 		const inputAttributes = {
 	      	id: 'trends-renderer',
-	      	placeholder: 'What do you want to discuss?'
+	      	placeholder: 'What do you want to discuss?',
+			onKeyPress: (e, el) => { 
+				if (e.which == 13 || e.keyCode == 13) {
+					this.props.showDiscussions(e.target.value);
+					console.log(`Searching discussions about ${e.target.value}`);
+					return false;
+				}
+			}
 	    };
 	    return (
 	    	<div className="search">
@@ -69,7 +76,7 @@ export default class Search extends Component {
 			      	suggestionRenderer={this.renderSuggestion}
 			      	suggestionValue={this.getSuggestionValue}
 			      	onSuggestionSelected={this.onSuggestionSelected}
-                    inputAttributes={this.inputAttributes}
+                    inputAttributes={inputAttributes}
                     scrollBar={true} />
 			</div>
 	    );

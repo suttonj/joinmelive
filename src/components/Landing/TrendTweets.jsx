@@ -76,7 +76,7 @@ export default class Trending extends Component {
 	render() {
 		return (
 	      <div style={styles.container} className="activity">
-	        <Tweets tweets={this.state.tweets} />
+	        <Tweets tweets={this.state.tweets} joinDiscussion={this.props.joinDiscussion} />
 	      </div>
 	    );
 	}

@@ -77,6 +77,11 @@
   background-color: #ddd;
 }
 
+li.tweet:hover {
+  background-color: #666;
+  cursor: pointer;
+}
+
 button.joinButton hover{
   background-color: #9bd222;
 }

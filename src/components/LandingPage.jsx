@@ -64,7 +64,9 @@ export default class LandingPage extends Component {
 
         this.showDiscussions = this.showDiscussions.bind(this);
 
+        this.props.getCategories();
         this.props.getDiscussions();
+        this.props.getTags();
     }
 
     componentWillMount() {
@@ -86,7 +88,7 @@ export default class LandingPage extends Component {
 
     showDiscussions(query) {
         query = (typeof query === 'string' ? query : query.name);
-        this.props.search(query.name);
+        this.props.search('baseball');//query.name);
         this.setState({ isModalOpen: true });
     }
 
@@ -100,7 +102,8 @@ export default class LandingPage extends Component {
                     <div style={styles.textContainer}>
                         <Trending 
                             trends={this.state.trends}
-                            showDiscussions={ this.showDiscussions } />
+                            showDiscussions={ this.showDiscussions } 
+                            joinDiscussion={ params => this.props.joinDiscussion(params) } />
                     </div>
                     <Modal
                         isOpen={this.state.isModalOpen}

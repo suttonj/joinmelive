@@ -12,6 +12,10 @@ export default class JoinDiscussionModal extends Component {
     }
 
     render() {
+        //workaround for auto-suggest box showing over modal
+        // if (document.getElementById('react-autosuggest-1')) {
+        //     React.unmountComponentAtNode(document.getElementById('react-autosuggest-1'));
+        // }
         return (
             <div>
                 <div style={{position:'absolute',top:5,right:5,cursor:'pointer'}} onClick={this.props.close}><span style={{fontSize:12}}>x</span></div>
