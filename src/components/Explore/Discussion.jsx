@@ -15,7 +15,6 @@ export default class Discussion extends Component {
 }
 
 Discussion.propTypes = {
-    style: PropTypes.object.isRequired,
     id: PropTypes.number.isRequired,
     subject: PropTypes.string.isRequired,
     viewerCode: PropTypes.number.isRequired,

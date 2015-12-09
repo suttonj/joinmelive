@@ -1,13 +1,18 @@
 import React, { Component, PropTypes } from 'react';
-import Select from 'react-select';
 
 import Hamburger from './Hamburger';
 import CategoriesList from './CategoriesList';
+import Search from './Search';
 
 export default class Header extends Component {
+    constructor(props) {
+        super(props);
 
-    componentDidMount() {
-        this.refs.searchInput.focus();
+        this.state = {
+            isSearchHovered: false,
+            isHamburgerHovered: false,
+            isSearchShown: false,
+        };
     }
 
     render() {
@@ -17,28 +22,26 @@ export default class Header extends Component {
                     <div style={styles.logoContainer}>
                         <img src='img/jm-logo.svg' style={styles.logo} />
                     </div>
-                    <div style={styles.hamburgerContainer}>
+                    <div
+                        style={{ ...styles.searchContainer, backgroundColor: this.state.isSearchHovered && '#888888' }}
+                        onMouseOver={ () => this.setState({ isSearchHovered: true }) }
+                        onMouseOut={ () => this.setState({ isSearchHovered: false }) }
+                        onClick={ () => this.setState({ isSearchShown: true }) }>
+                    {this.state.isSearchShown ?
+                        <Search {...this.props } onBlur={ () => this.setState({ isSearchShown: false })} /> :
+                        <div style={styles.searchPlaceholder}>Search<div style={styles.searchIcon} /></div>
+                    }
+                    </div>
+                    <div
+                        style={{ ...styles.hamburgerContainer, backgroundColor: this.state.isHamburgerHovered && '#888888' }}
+                        onMouseOver={ () => this.setState({ isHamburgerHovered: true }) }
+                        onMouseOut={ () => this.setState({ isHamburgerHovered: false }) }>
                         <Hamburger>
                             <CategoriesList 
                                 categories={this.props.categories}
                                 selectedCategoryId={this.props.selectedCategoryId}
                                 selectCategory={this.props.selectCategory} />
                         </Hamburger>
-                    </div>
-                    <div style={styles.searchContainer}>
-                        <input
-                            type="text"
-                            ref="searchInput"
-                            placeholder="Search"
-                            onKeyUp={ e => this.props.search(e.target.value) } />
-                    </div>
-                    <div style={styles.tagsContainer}>
-                        <Select
-                            multi={true}
-                            value={this.props.selectedTagIds.join(',')}
-                            delimiter=","
-                            options={this.props.tags.map(tag => ({ value: tag.id, label: tag.name }))}
-                            onChange={this.props.updateSelectedTags} />
                     </div>                        
                 </div>
             </div>
@@ -62,27 +65,45 @@ const styles = {
         position:'relative',
         backgroundColor:'#2b2b2b',
         boxShadow:'0 0 11px 1px #111',
+        height: 50,
     },
     innerContainer: {
         maxWidth: 1000,
         margin: 'auto',
         display:'flex',
-        justifyContent:'center',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: '100%',
     },
     logoContainer: {
 
     },
     logo: {
-        width:100,
-        height:100,
+        width:50,
+        height:50,
     },
     hamburgerContainer: {
-
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',        
     },
     searchContainer: {
-        flexGrow:1,
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        float: 'right',
+        padding: '0 20px',
     },
-    tagsContainer: {
-        flexGrow:1,
+    searchPlaceholder: {
+        width: 100,
+        position: 'relative',
+    },
+    searchIcon: {
+        opacity: .9,
+        padding: '16px 17px',
+        position: 'absolute',
+        top: -7,
+        right: 12,
+        background: 'url(//s.imgur.com/images/site-sprite.png?1430420391) no-repeat scroll -495px -249px',
     },
 };

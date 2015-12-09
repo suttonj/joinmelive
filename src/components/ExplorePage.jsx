@@ -32,6 +32,7 @@ export class ExplorePage extends Component {
             '';
         return (
             <div style={styles.container}>
+                
                 <Header
                     search={this.props.search}
                     tags={this.props.tags}
@@ -40,18 +41,18 @@ export class ExplorePage extends Component {
                     categories={this.props.categories}
                     selectedCategoryId={discussionFilters.categoryId}
                     selectCategory={this.props.selectCategory} />
-                <div style={styles.mainContainer}>           
-                    <div style={styles.discussionsContainer}>
-                    {this.props.ajax.getDiscussions ?
-                        <LoadingSpinner /> :
-                        <DiscussionsList 
-                            categoryName={selectedCategoryName}
-                            discussions={filteredDiscussions}
-                            startDiscussion={ () => this.setState({ isModalOpen: true }) }
-                            joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
-                    }
-                    </div> 
-                </div>
+
+                <div style={styles.discussionsContainer}>
+                {this.props.ajax.getDiscussions ?
+                    <LoadingSpinner /> :
+                    <DiscussionsList 
+                        categoryName={selectedCategoryName}
+                        discussions={filteredDiscussions}
+                        startDiscussion={ () => this.setState({ isModalOpen: true }) }
+                        joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
+                }
+                </div> 
+
                 <Modal
                     isOpen={this.state.isModalOpen}
                     style={styles.modal}
@@ -66,6 +67,7 @@ export class ExplorePage extends Component {
                         close={ () => this.setState({ isModalOpen: false }) } />
                 }
                 </Modal>
+
             </div>
         );
     }
@@ -84,16 +86,16 @@ const styles = {
         backgroundColor:'#444444',
         color:'white',
     },
-    mainContainer: {
-        display:'flex',
-    },
     discussionsContainer: {
-        flexGrow:4,
         position:'relative',
+        minHeight: 200,
+        width: 1000,
+        margin: 'auto',
+        marginTop: 25,
         backgroundColor:'#2b2b2b',
         borderRadius:5,
-        margin:10,
         boxShadow:'0 0 11px 1px #111',
+        overflow: 'scroll',
     },
     modal: {
         content:{
