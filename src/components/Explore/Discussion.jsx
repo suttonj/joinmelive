@@ -1,6 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 
 export default class Discussion extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isHovered: false,
+        };
+    }
+
     render() {
         return (
             <div
@@ -8,10 +16,12 @@ export default class Discussion extends Component {
                 style={{position:'relative',width:200,padding:'10px 20px'}}>
                 <img
                     src={this.props.previewImageUrl}
-                    style={{width:200,height:200,borderRadius:'50%',cursor:'pointer'}}
-                    onClick={this.props.join} />
+                    style={{width:200,height:200,borderRadius:'50%',cursor:'pointer',boxShadow:this.state.isHovered && '0 0 11px 1px #111'}}
+                    onClick={this.props.join}
+                    onMouseOver={ () => this.setState({ isHovered: true }) }
+                    onMouseOut={ () => this.setState({ isHovered: false }) } />
                 <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                    <a onClick={this.props.join} style={{ color: 'white',cursor:'pointer'}}>{this.props.subject}</a>
+                    <a onClick={this.props.join} style={{ color: 'white',cursor:'pointer',color:this.state.isHovered ? '#9bd000' : 'white'}}>{this.props.subject}</a>
                 </div>
                 {this.props.showTrendingIcon &&
                     <div style={{position:'absolute',bottom:0,left:8}}>
