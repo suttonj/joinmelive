@@ -17,12 +17,9 @@ export default class Header extends Component {
         this.expandInput = this.expandInput.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-
-    }
-
     componentDidMount() {
         this.refs.searchInput.focus();
+        this.expandInput(this.refs.searchInput.value);
     }
 
     expandInput(text) {
