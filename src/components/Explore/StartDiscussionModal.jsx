@@ -11,6 +11,7 @@ export default class StartDiscussionModal extends Component {
         this.state = { 
             ...this.props,
             subject: '',
+            isButtonHovered: false,
         };
     }
 
@@ -39,7 +40,11 @@ export default class StartDiscussionModal extends Component {
                             </div>
                         </div>
                         <div style={{display:'flex',flexDirection:'row-reverse',justifyContent:'space-between',alignItems:'center'}}>
-                            <button onClick={ () => this.props.start(this.state) } style={{
+                            <button 
+                            onClick={ () => this.props.start(this.state) } 
+                            onMouseOver={ () => this.setState({ isButtonHovered: true }) }
+                            onMouseOut={ () => this.setState({ isButtonHovered: false }) }
+                            style={{
                             color: '#424143',
                             fontWeight: 'bold',
                             padding: '10px 40px',
@@ -48,6 +53,8 @@ export default class StartDiscussionModal extends Component {
                             border: 'none',
                             borderRadius: '4px',
                             backgroundColor: '#F88300',
+                            outlineWidth: 0,
+                            boxShadow: this.state.isButtonHovered && '0 0 11px 1px #111',
                         }}>Start</button>
                             <a onClick={this.props.close} style={{textDecoration:'underline',color:'#9bd000',cursor:'pointer'}}>Cancel</a>
                         </div>

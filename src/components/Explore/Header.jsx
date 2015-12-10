@@ -11,6 +11,7 @@ export default class Header extends Component {
             isSearchHovered: false,
             isHamburgerHovered: false,
             isSearchShown: false,
+            isButtonHovered: false,
         };
 
         this.onKeyUp = this.onKeyUp.bind(this);
@@ -51,7 +52,10 @@ export default class Header extends Component {
                     </div>
 
                     <div>
-                        <button style={{
+                        <button 
+                            onMouseOver={ () => this.setState({ isButtonHovered: true }) }
+                            onMouseOut={ () => this.setState({ isButtonHovered: false }) }
+                            style={{
                             color: '#424143',
                             fontWeight: 'bold',
                             padding: '10px 40px',
@@ -60,6 +64,8 @@ export default class Header extends Component {
                             border: 'none',
                             borderRadius: '4px',
                             backgroundColor: '#F88300',
+                            outlineWidth: 0,
+                            boxShadow: this.state.isButtonHovered && '0 0 11px 1px #111',
                         }} 
                         onClick={this.props.startDiscussion}>Start a discussion</button> 
                     </div>
