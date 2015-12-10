@@ -45,7 +45,7 @@ export default class Tweets extends Component {
         let self = this;
 
         setTimeout(() => {
-            const elements = self.state.tweets.map((tweet) => {
+            const elements = self.props.tweets.map((tweet) => {
                 return (
                     <Tweet key={tweet.twid} 
                         tweet={tweet} 
@@ -57,7 +57,7 @@ export default class Tweets extends Component {
                 isInfiniteLoading: false,
                 elements: [ ...elements ],
             })
-        }, 1000);
+        }, 500);
     }
 
     elementInfiniteLoad() {

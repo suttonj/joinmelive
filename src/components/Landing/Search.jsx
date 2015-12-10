@@ -63,6 +63,9 @@ export default class Search extends Component {
 					console.log(`Searching discussions about ${e.target.value}`);
 					return false;
 				}
+				else {
+					this.props.filter(e.target.value);
+				}
 			}
 	    };
 	    return (

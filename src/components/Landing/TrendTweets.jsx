@@ -12,7 +12,7 @@ const styles = {
     }
 };
 
-export default class Trending extends Component {
+export default class TrendTweets extends Component {
 	
 	constructor(props) {
         super(props);
