@@ -8,6 +8,7 @@ export default class DiscussionsList extends Component {
         super(props);
 
         this.shouldShowTrendingIcon = this.shouldShowTrendingIcon.bind(this);
+        this.join = this.join.bind(this);
     }
 
     shouldShowTrendingIcon(i) {
@@ -18,10 +19,7 @@ export default class DiscussionsList extends Component {
     }
 
     join(viewerCode) {
-        this.setState({
-            isViewerOpen: true,
-            viewerCode,
-        });
+        this.props.joinDiscussion(viewerCode)
     }
 
     render() {
@@ -35,7 +33,7 @@ export default class DiscussionsList extends Component {
                                 key={disc.id}
                                 {...disc}
                                 showTrendingIcon={this.shouldShowTrendingIcon(i)}
-                                join={ () => this.props.joinDiscussion(disc.viewerCode) } />
+                                join={ () => this.join(disc.viewerCode) } />
                         )}
                     </div>
                 }
