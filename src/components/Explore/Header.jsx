@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
 
-import Hamburger from './Hamburger';
 import CategoriesList from './CategoriesList';
 
 export default class Header extends Component {
@@ -35,7 +34,7 @@ export default class Header extends Component {
             <div style={styles.container}>
                 <div style={styles.innerContainer}>
 
-                    <div style={styles.logoContainer}>
+                    <div style={styles.logoContainer} onClick={ () => window.location = '/#'}>
                         <img src='img/jm-logo.svg' style={styles.logo} />
                     </div>
 
@@ -86,7 +85,7 @@ const styles = {
         height: '100%',
     },
     logoContainer: {
-
+        cursor:'pointer',
     },
     logo: {
         width:50,

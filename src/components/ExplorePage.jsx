@@ -58,9 +58,12 @@ export class ExplorePage extends Component {
                     selectCategory={this.props.selectCategory} />
 
                 <div style={styles.discussionsContainer}>
+                {this.props.ajax.getDiscussions ?
+                    <LoadingSpinner /> :
                     <DiscussionsList 
                         discussions={filteredDiscussions}
                         joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
+                }
                 </div> 
 
                 <Modal
