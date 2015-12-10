@@ -46,7 +46,11 @@ export default class DiscussionList extends Component {
                 join={ () => this.props.joinDiscussion(disc.viewerCode) } />
         );
         if (!discussions.length) {
-            discussions = ( <div className="noDiscussions">No one is talking about this right now. Be a conversation starter!</div> );
+            discussions = ( 
+                <div className="noDiscussions">
+                    No one is talking about this right now.<br /> Be a conversation starter!
+                </div> 
+            );
         }
 
         return (

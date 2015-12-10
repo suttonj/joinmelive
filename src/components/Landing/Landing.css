@@ -77,9 +77,44 @@
   background-color: #ddd;
 }
 
+/*li.tweet: {
+  position: relative;
+}*/
+
 li.tweet:hover {
-  background-color: #666;
+  background-color: #555;
   cursor: pointer;
+}
+
+li.tweet:before {
+    content: '';
+    position: absolute;
+    width: 100%; height:100%;
+    top: 0; right: 0;
+    background: rgba(155,208,0,0.8);
+    border-radius: 4px;
+    color: #424143;
+    opacity: 0;
+    transition: all .5s;
+    -webkit-transition: all .5s;
+}
+
+li.tweet:after {
+    content: 'Join';
+    position: absolute;
+    width: 45px; height:25px;
+    top: 25%; right: 36%;
+    color: #eee;
+    font-weight: bold;
+    font-size: 18px;
+    z-index: 10;
+    opacity: 0;
+    transition: all .5s;
+    -webkit-transition: all .5s;
+}
+
+li.tweet:hover:after, li.tweet:hover:before{
+    opacity: 1;
 }
 
 button.joinButton hover{

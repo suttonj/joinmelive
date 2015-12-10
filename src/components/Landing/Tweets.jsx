@@ -4,11 +4,12 @@ import Infinite from 'react-infinite';
 
 const styles = {
     item: {
+        position: 'relative',
         listStyleType: 'none',
-        border: '1px solid #777',
-        borderRadius: 5,
+        backgroundColor: '#333',
+        borderRadius: 4,
         padding: 15,
-        height: 30,
+        height: 25,
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
