@@ -35,9 +35,10 @@ const styles = {
         marginBottom: 20
     },
     img: {
-        width: 500,
+        width: 400,
         height: 'auto',
-        padding: '20px 0 0 0'
+        padding: '20px 0 0 0',
+        margin: '0 auto'
     },
     modal: {
         content: {
@@ -84,8 +85,8 @@ export default class LandingPage extends Component {
         return (
             <div className="landing" style={styles.container}>
                 <div style={styles.innerContainer}>
-                    <img src="img/jm-logo.svg" style={styles.img} />
-                    <span><Link to='explore'>Explore Conversations</Link></span>
+                    <img src="img/jmlive-logo.svg" style={styles.img} />
+                    <span stlye={{color: '#ff8300', fontWeight: 'bold', fontSize:18}}><Link to='explore'>Explore Conversations</Link></span>
                     <Search suggestions={this.props.trends} showDiscussions={ this.showDiscussions } />
                     <div style={styles.textContainer}>
                         <Trending 

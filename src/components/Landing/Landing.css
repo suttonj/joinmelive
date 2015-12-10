@@ -100,13 +100,13 @@ li.tweet:before {
 }
 
 li.tweet:after {
-    content: 'Join';
+    content: 'join';
     position: absolute;
     width: 45px; height:25px;
     top: 25%; right: 36%;
-    color: #eee;
+    color: #fff;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 21px;
     z-index: 10;
     opacity: 0;
     transition: all .5s;
@@ -115,6 +115,11 @@ li.tweet:after {
 
 li.tweet:hover:after, li.tweet:hover:before{
     opacity: 1;
+}
+
+.trendingTopic:hover {
+  font-weight: bold;
+  font-size: 16px;
 }
 
 button.joinButton hover{
@@ -147,4 +152,12 @@ button.joinButton hover{
 
 .startButton:hover {
     background-color: #F88900;
+}
+
+.liveLogo {
+    position: absolute;
+    top: 260px;
+    right: 50px;
+    width: 300px;
+    height: 350px;
 }
