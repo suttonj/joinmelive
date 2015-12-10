@@ -14,20 +14,28 @@ export default class Header extends Component {
             isButtonHovered: false,
         };
 
-        this.onKeyUp = this.onKeyUp.bind(this);
+        this.expandInput = this.expandInput.bind(this);
     }
 
     componentDidMount() {
         this.refs.searchInput.focus();
     }
 
-    onKeyUp(text) {
+    expandInput(text) {
         this.props.search(text);
-        let newSize = 5
-        if (text && text.length > 5) {
-            newSize = text.length;
+
+        if (!text) {
+            this.refs.searchInput.style.width = '42px';
+            return;
         }
-        this.refs.searchInput.size = newSize;
+
+        const span = document.createElement('span');
+        span.innerHTML = text;
+        document.body.appendChild(span);
+        const width = span.offsetWidth;
+
+        this.refs.searchInput.style.width = width + 'px';
+        document.body.removeChild(span);
     }
 
     render() {
@@ -45,9 +53,8 @@ export default class Header extends Component {
                             type="text"
                             ref="searchInput"
                             placeholder="Search"
-                            style={{backgroundColor:'transparent', border:'none',borderBottom:'2px solid #9bd000',outlineWidth:0,color:'white',padding:'3px 20px'}}
-                            onKeyUp={ e => this.onKeyUp(e.target.value) }
-                            size="5" />
+                            style={{backgroundColor:'transparent', border:'none',borderBottom:'2px solid #9bd000',outlineWidth:0,color:'white',padding:'3px 20px',width:42}}
+                            onKeyUp={ e => this.expandInput(e.target.value) } />
                         &nbsp;.
                     </div>
 
