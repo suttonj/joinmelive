@@ -17,6 +17,10 @@ export default class Header extends Component {
         this.expandInput = this.expandInput.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+
+    }
+
     componentDidMount() {
         this.refs.searchInput.focus();
     }
@@ -60,6 +64,7 @@ export default class Header extends Component {
                             ref="searchInput"
                             placeholder="Search"
                             style={{backgroundColor:'transparent', border:'none',borderBottom:'2px solid #9bd000',outlineWidth:0,color:'white',padding:'3px 20px',width:42}}
+                            defaultValue={this.props.query}
                             onKeyUp={ e => this.expandInput(e.target.value) } />
                         &nbsp;.
                     </div>
