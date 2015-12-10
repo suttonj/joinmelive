@@ -41,6 +41,7 @@ export class ExplorePage extends Component {
                     categories={this.props.categories}
                     selectedCategoryId={discussionFilters.categoryId}
                     selectCategory={this.props.selectCategory} 
+                    startDiscussion={ () => this.setState({ isModalOpen: true }) }
                 />
 
                 <ActiveFilters
@@ -51,13 +52,28 @@ export class ExplorePage extends Component {
                     selectCategory={this.props.selectCategory} />
 
                 <div style={styles.discussionsContainer}>
-                {this.props.ajax.getDiscussions ?
-                    <LoadingSpinner /> :
+
                     <DiscussionsList 
                         discussions={filteredDiscussions}
                         joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
-                }
+                
                 </div> 
+
+                <Modal
+                    isOpen={this.state.isModalOpen}
+                    style={styles.modal}
+                    onRequestClose={ () => this.setState({ isModalOpen: false }) }>
+                {this.state.isModalOpen && 
+                    <StartDiscussionModal
+                        { ...discussionFilters }
+                        subject={discussionFilters.query}
+                        tagNames={discussionFilters.tagIds.map(id => this.props.tags.filter(tag => tag.id === id)[0].name)}
+                        categories={this.props.categories}
+                        tags={this.props.tags}
+                        start={ params => { this.props.startDiscussion(params); this.setState({ isModalOpen: false }) } }
+                        close={ () => this.setState({ isModalOpen: false }) } />
+                }
+                </Modal>
 
             </div>
         );
@@ -73,9 +89,9 @@ const styles = {
     container: {
         display: 'flex',
         flexDirection:'column',
-        height:'100%',
         backgroundColor:'#444444',
         color:'white',
+        minHeight: '100%'
     },
     discussionsContainer: {
         position:'relative',
@@ -86,12 +102,13 @@ const styles = {
         backgroundColor:'#2b2b2b',
         borderRadius:5,
         boxShadow:'0 0 11px 1px #111',
-        overflow: 'scroll',
     },
     modal: {
         content:{
-            width:500,
-            height:500,
+            top: `calc(50% - 0.5 * 242px)`,
+            left: 'calc(50% - 0.5 * 342px)',
+            width:300,
+            height:200,
         },
     }, 
 };

@@ -16,27 +16,24 @@ export default class StartDiscussionModal extends Component {
     render() {
         return (
             <div>
-                <h1>Start you own discussion:</h1>
-                <input
-                    type="text"
-                    placeholder="Subject"
-                    onKeyUp={ e => this.setState({ subject: e.target.value }) } />
+                <div style={{margin:'auto'}}>
+                    Let's talk about&nbsp;
+                    <input
+                        type="text"
+                        ref="searchInput"
+                        placeholder="Subject"
+                        style={{backgroundColor:'transparent', border:'none',borderBottom:'2px solid #9bd000',outlineWidth:0,color:'white',padding:'3px 20px'}}
+                        onKeyUp={ e => this.setState({ subject: e.target.value }) }
+                        size="6"
+                        defaultValue={this.props.subject} />
+                    &nbsp;.
+                </div>
                 <label>
                     Categories:
                     <CategoriesList
+                        selectedCategoryId={this.props.selectedCategoryId}
                         categories={this.props.categories}
-                        selectedCategoryId={this.state.categoryId}
-                        selectCategory={ categoryId => this.setState({ categoryId }) } />
-                </label>
-                <label>
-                    Tags:            
-                    <Select
-                        multi={true}
-                        value={this.props.tagNames.join(',')}
-                        delimiter=","
-                        options={this.props.tags.map(tag => ({ value: tag.name, label: tag.name }))} // use name as key
-                        onChange={ tagNames => this.setState({ tagNames }) }
-                        allowCreate={true} />
+                        selectCategory={this.props.selectCategory} />
                 </label>
                 <button onClick={ () => this.props.start(this.state) }>Start</button>
                 <button onClick={this.props.close}>Cancel</button>

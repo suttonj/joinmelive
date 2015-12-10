@@ -13,6 +13,21 @@ export default class Header extends Component {
             isHamburgerHovered: false,
             isSearchShown: false,
         };
+
+        this.onKeyUp = this.onKeyUp.bind(this);
+    }
+
+    componentDidMount() {
+        this.refs.searchInput.focus();
+    }
+
+    onKeyUp(text) {
+        this.props.search(text);
+        let newSize = 5
+        if (text && text.length > 5) {
+            newSize = text.length;
+        }
+        this.refs.searchInput.size = newSize;
     }
 
     render() {
@@ -26,15 +41,18 @@ export default class Header extends Component {
 
                     <div style={{margin:'auto'}}>
                         Let's talk about&nbsp;
-                        <span 
-                            contentEditable="true" 
+                        <input
+                            type="text"
+                            ref="searchInput"
+                            placeholder="Search"
                             style={{backgroundColor:'transparent', border:'none',borderBottom:'2px solid #9bd000',outlineWidth:0,color:'white',padding:'3px 20px'}}
-                            onKeyUp={ e => this.props.search(e.target.innerHTML) } />
+                            onKeyUp={ e => this.onKeyUp(e.target.value) }
+                            size="5" />
                         &nbsp;.
                     </div>
                 
                     <div>
-                        Start your own <button style={styles.button}>Discussion</button>
+                        Start your own <button style={styles.button} onClick={this.props.startDiscussion}>Discussion</button>
                     </div>
                 </div>
             </div>

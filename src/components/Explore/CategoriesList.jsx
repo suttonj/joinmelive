@@ -5,48 +5,41 @@ export default class CategoriesList extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            isOpen: false,
+        };
+
+        this.getCategory = this.getCategory.bind(this);
         this.selectCategory = this.selectCategory.bind(this);
-        this.isMenuItemOpen = this.isMenuItemOpen.bind(this);
+    }
+
+    getCategory() {
+        return this.props.selectedCategoryId && this.props.categories.length ?
+            this.props.categories.filter(cat => cat.id === this.props.selectedCategoryId)[0].name : 
+            'category';
     }
 
     selectCategory(id) {
-        if (this.props.selectedCategoryId !== id) {
-            this.props.selectCategory(id);
-        } else {
-            this.props.selectCategory(null);
-        }
-    }
-
-    isMenuItemOpen(category) {
-        return category.id === this.props.selectedCategoryId ||
-            category.subCategories.some(sub => sub.id === this.props.selectedCategoryId);
+        this.setState({ isOpen: false });
+        this.props.selectCategory(id);
     }
 
     render() {
         return (
-            <div>
-            {this.props.categories.map(category => 
-                <Category
-                    key={category.id}
-                    { ...category }
-                    selectedCategoryId={this.props.selectedCategoryId}
-                    isOpen={this.isMenuItemOpen(category)}
-                    onClick={ categoryId => this.selectCategory(categoryId) } />
-            )}
+            
+            <div style={{position:'relative'}}
+                onMouseOver={ () => this.setState({ isOpen: true }) }
+                onMouseOut={ () => this.setState({ isOpen: false }) }>
+                <span style={{color:'#f88300',borderBottom:'1px solid #f88300'}}>
+                    {this.getCategory()} ▼
+                </span>
+                <div style={{position:'absolute',zIndex:1000,backgroundColor:'black',display:this.state.isOpen ? 'block' : 'none'}}>
+                    <div onClick={ () => this.selectCategory(null) }>{'<none>'}</div>
+                {this.props.categories.map(cat =>
+                    <div onClick={ () => this.selectCategory(cat.id) }>{cat.name}</div>
+                )}
+                </div>
             </div>
         );
     }
 }
-
-CategoriesList.propTypes = {
-    categories: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        subCategories: PropTypes.arrayOf(PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-        })).isRequired,
-    })).isRequired,
-    selectedCategoryId: PropTypes.number,
-    selectCategory: PropTypes.func.isRequired,
-};
