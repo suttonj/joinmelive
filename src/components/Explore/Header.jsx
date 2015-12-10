@@ -50,7 +50,7 @@ export default class Header extends Component {
                 <div style={styles.innerContainer}>
 
                     <div style={styles.logoContainer} onClick={ () => window.location = '/#'}>
-                        <img src='img/jm-logo.svg' style={styles.logo} />
+                        <img src='img/jmlive-logo.svg' style={styles.logo} />
                     </div>
 
                     <div style={{margin:'auto'}}>
@@ -107,8 +107,9 @@ const styles = {
         cursor:'pointer',
     },
     logo: {
-        width:50,
-        height:50,
+        marginTop: 8,
+        width:75,
+        height:75,
     },
     hamburgerContainer: {
         height: '100%',
