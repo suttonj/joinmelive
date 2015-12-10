@@ -11,16 +11,14 @@ export default class Discussion extends Component {
                 id={this.props.id}
                 className='discussionItem'
                 data-viewercode={this.props.viewerCode}
-                style={this.props.style}>
+                style={this.props.style}
+                onClick={this.props.join} >
                 <div style={{padding:10}}>
-                    <img src={this.props.previewImageUrl} style={{width:80,height:80}} />
+                    <img src={this.props.previewImageUrl} />
                 </div>
-                <div style={{padding:10, width:300, margin:20}}>
+                <div style={{padding:10, width:500, margin:15, textOverflow: 'ellipsis'}}>
                     <h4>{this.props.subject}</h4>
-                    <h4>{randomUsers} Talking Heads</h4>
-                </div>
-                <div style={{padding:10, width: 200}}>
-                    <button className='joinButton' onClick={this.props.join}>Join</button>
+                    <h4 style={{color: '#666'}}>{randomUsers} Talking Heads</h4>
                 </div>
             </div>
         );

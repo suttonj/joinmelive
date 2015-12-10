@@ -6,7 +6,7 @@ export default class Tweet extends Component {
 
     var tweet = this.props.tweet;
     return (
-      <li className={"tweet" + (tweet.active ? ' active' : '')}>
+      <li style={this.props.style} className={"tweet" + (tweet.active ? ' active' : '')} onClick={this.props.join}>
           <span className="content">{tweet.body}</span>
       </li>
     );

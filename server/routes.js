@@ -34,7 +34,7 @@ module.exports = {
       if (typeof data === "undefined") {
         res.send({status: false});
       } else {
-        res.send({trends: trends, status: true});
+        res.send(trends);
       }
     });
   },

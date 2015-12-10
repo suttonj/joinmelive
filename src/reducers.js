@@ -60,6 +60,15 @@ function tags(state=[], action) {
     }
 }
 
+function trends(state=[], action) {
+    switch (action.type) {
+        case 'UPDATE_TRENDS':
+            return action.trends;
+        default:
+            return state;
+    }
+}
+
 function ajax(state={getCategories:false,getDiscussions:false,getTags:false,startDiscussion:false}, action) {
     switch (action.type) {
         case 'GET_CATEGORIES':
@@ -68,6 +77,8 @@ function ajax(state={getCategories:false,getDiscussions:false,getTags:false,star
             return { ...state, getDiscussions: !state.getDiscussions };
         case 'GET_TAGS':
             return { ...state, getTags: !state.getTags };
+        case 'GET_TRENDS':
+            return { ...state, getTrends: !state.getTrends };
         case 'START_DISCUSSION':
             return { ...state, startDiscussion: !state.startDiscussion };
         default:
@@ -79,5 +90,6 @@ export default combineReducers({
     categories,
     discussions,
     tags,
+    trends,
     ajax,
 });

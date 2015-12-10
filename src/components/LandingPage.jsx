@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
+import { Link } from 'react-router';
 
-import InfiniteList from './Landing/Infinite';
 import Trending from './Landing/Trending';
 import Search from './Landing/Search';
 import './Landing/Landing.css';
@@ -31,11 +31,13 @@ const styles = {
         opacity: '0.9',
         color: '#eee',
         borderRadius: 5,
-        width: 480
+        width: 480,
+        marginBottom: 20
     },
     img: {
         width: 500,
         height: 'auto',
+        padding: '20px 0 0 0'
     },
     modal: {
         content: {
@@ -45,8 +47,10 @@ const styles = {
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            width:600,
-            height:400
+            width:420,
+            height:360,
+            backgroundColor: '#555',
+            color: '#eee'
         }
     }
 
@@ -58,35 +62,20 @@ export default class LandingPage extends Component {
         super(props);
 
         this.state = {
-            trends: [],
             isModalOpen: false
         };
 
         this.showDiscussions = this.showDiscussions.bind(this);
 
+        this.props.getTrends();
+        this.props.getCategories();
         this.props.getDiscussions();
-    }
-
-    componentWillMount() {
-        let self = this;
-        let request = new XMLHttpRequest();
-
-        request.open('GET', apiUrl + 'trends', true);
-        request.onload = () => {
-
-            if (request.status >= 200 && request.status < 400){
-                let trends = JSON.parse(request.responseText).trends;
-                trends = JSON.parse(trends)[0].trends;
-                self.setState({trends: trends});
-            }
-        }
-
-        request.send();
+        this.props.getTags();
     }
 
     showDiscussions(query) {
         query = (typeof query === 'string' ? query : query.name);
-        this.props.search(query.name);
+        this.props.search(query);
         this.setState({ isModalOpen: true });
     }
 
@@ -96,11 +85,13 @@ export default class LandingPage extends Component {
             <div className="landing" style={styles.container}>
                 <div style={styles.innerContainer}>
                     <img src="img/jm-logo.svg" style={styles.img} />
-                    <Search suggestions={this.state.trends} showDiscussions={ this.showDiscussions } />
+                    <span><Link to='explore'>Explore Conversations</Link></span>
+                    <Search suggestions={this.props.trends} showDiscussions={ this.showDiscussions } />
                     <div style={styles.textContainer}>
                         <Trending 
-                            trends={this.state.trends}
-                            showDiscussions={ this.showDiscussions } />
+                            trends={this.props.trends}
+                            showDiscussions={ this.showDiscussions } 
+                            joinDiscussion={ params => this.props.joinDiscussion(params) } />
                     </div>
                     <Modal
                         isOpen={this.state.isModalOpen}
