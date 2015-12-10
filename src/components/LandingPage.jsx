@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import { Link } from 'react-router';
 
 import Trending from './Landing/Trending';
 import Search from './Landing/Search';
@@ -87,9 +86,6 @@ export default class LandingPage extends Component {
                 <div style={styles.innerContainer}>
                     <img src="img/jmlive-logo.svg" style={styles.img} />
                     <Search suggestions={this.props.trends} showDiscussions={ this.showDiscussions } filter={this.props.search} />
-                    <span style={{marginTop: -10, marginBottom: 10, textAlign: 'right'}} className="explore">
-                        <Link to='explore'>Explore Conversations »</Link>
-                    </span>
                     <div style={styles.textContainer}>
                         <Trending 
                             trends={this.props.trends}

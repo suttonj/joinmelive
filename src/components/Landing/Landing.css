@@ -1,6 +1,6 @@
 
 .landing {
-  background: url(/img/bg.jpg) no-repeat center center fixed; 
+  background: url(/img/bg2.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -15,6 +15,7 @@
 
 .search {
 	padding: 20px 0;	
+  position: relative;
 }
 
 .react-autosuggest__suggestions {
@@ -26,7 +27,7 @@
   position: relative;
 }
 .react-autosuggest input {
-  width: 440px;
+  width: 320px;
   height: 30px;
   padding: 10px 20px;
   font-size: 18px;
@@ -43,7 +44,7 @@
 .react-autosuggest__suggestions {
   position: absolute;
   top: 51px;
-  width: 280px;
+  width: 360px;
   margin: 0;
   padding: 0;
   list-style-type: none;
@@ -154,14 +155,20 @@ button.joinButton hover{
     background-color: #F88900;
 }
 
-.explore a {
+.exploreButton {
     color: #ff8300;
+    background-color: #444;
+    font-size: 12px;
     text-decoration: none;
+    width: 100px;
+    height: 30px;
+    padding: 25px 12px;
     font-size: 16px;
-    text-decoration: none;
+    line-height: 0em;
+    border-radius: 4px;
+    border: none;
 }
 
-.explore a:hover {
-    font-weight: bold;
-    text-decoration: none;
+.exploreButton:hover {
+    background-color: #333;
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
 import Fuse from 'fuse.js';
+import { Link } from 'react-router';
 
 export default class Search extends Component {
 
@@ -10,6 +11,10 @@ export default class Search extends Component {
 		this.getSuggestions = this.getSuggestions.bind(this);
 		this.renderSuggestion = this.renderSuggestion.bind(this);
 		this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
+	}
+	
+	componentDidMount() {
+		this.props.filter('');
 	}
 
 	componentDidUpdate() {
@@ -57,6 +62,7 @@ export default class Search extends Component {
 		const inputAttributes = {
 	      	id: 'trends-renderer',
 	      	placeholder: 'What do you want to discuss?',
+	      	width:240,
 			onKeyPress: (e, el) => { 
 				if (e.which == 13 || e.keyCode == 13) {
 					this.props.showDiscussions(e.target.value);
@@ -77,6 +83,9 @@ export default class Search extends Component {
 			      	onSuggestionSelected={this.onSuggestionSelected}
                     inputAttributes={inputAttributes}
                     scrollBar={true} />
+                <span style={{position: 'absolute', width: 180, right: 10, top: 20, textAlign: 'right'}} className="explore">
+                    <Link to='explore'><button className="exploreButton">Explore »</button></Link>
+                </span>
 			</div>
 	    );
 	}

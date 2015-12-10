@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Tweets from './Tweets';
-import Infinie from 'react-infinite';
 
 const apiUrl = 'http://localhost:3030/';
 
@@ -49,7 +48,7 @@ export default class TrendTweets extends Component {
 	render() {
 		return (
 	      <div style={styles.container} className="activity">
-	        <Tweets tweets={this.state.tweets} joinDiscussion={this.props.joinDiscussion} />
+	        <Tweets tweets={this.state.tweets} joinDiscussion={this.props.joinDiscussion} trends={this.props.trends} />
 	      </div>
 	    );
 	}

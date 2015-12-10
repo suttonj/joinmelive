@@ -48,7 +48,7 @@ export default class Tweets extends Component {
             const elements = self.props.tweets.map((tweet) => {
                 return (
                     <Tweet key={tweet.twid} 
-                        tweet={tweet} 
+                        tweet={tweet}
                         style={styles.item} 
                         join={ () => this.props.joinDiscussion(412424124) }/>
                 )

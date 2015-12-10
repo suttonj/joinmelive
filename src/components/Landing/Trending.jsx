@@ -74,7 +74,9 @@ export default class Trending extends Component {
 			    </div>
 			    <div style={styles.innerContainer}>
 	        		<span style={styles.label}>Latest activity</span>
-			    	<TrendTweets joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) }/>
+			    	<TrendTweets 
+			    		joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) }
+			    		trends={this.props.trends} />
 			    </div>
 		    </div>
 	    );
