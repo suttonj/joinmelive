@@ -28,12 +28,13 @@
 }
 
 .discussionItem:after {
-    content: 'Join';
+    content: 'join';
     position: absolute;
     width: 45px; height:25px;
     top: 35%; right: 45%;
-    color: #eee;
-    font-size: 24px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 26px;
     opacity: 0;
     transition: all .5s;
     -webkit-transition: all .5s;

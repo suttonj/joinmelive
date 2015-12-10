@@ -13,6 +13,7 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         width: 240,
+        minWidth: 220,
     	alignItems: 'flex-start',
     	margin:10
     },
@@ -26,7 +27,8 @@ const styles = {
     	padding: 2, 
     	cursor: 'pointer',
     	textIndent: 15,
-    	color: '#F88300'
+    	color: '#F88300',
+    	textDecoration: 'none'
     }
 };
 
@@ -37,7 +39,7 @@ class Topic extends Component {
 
     render() {
         return (
-            <a style={styles.trendingTopics} 
+            <a style={styles.trendingTopics} className="trendingTopic"
             	onClick={this.props.showDiscussions.bind(this, this.props.name)}>{ this.props.name }</a>
         );
     }
