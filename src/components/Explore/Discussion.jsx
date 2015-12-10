@@ -5,14 +5,19 @@ export default class Discussion extends Component {
         return (
             <div
                 id={this.props.id}
-                style={{width:200,padding:'10px 20px'}}>
+                style={{position:'relative',width:200,padding:'10px 20px'}}>
                 <img
                     src={this.props.previewImageUrl}
                     style={{width:200,height:200,borderRadius:'50%',cursor:'pointer'}}
                     onClick={this.props.join} />
-                <div style={{display:'flex',justifyContent:'center'}}>
+                <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
                     <a onClick={this.props.join} style={{ color: 'white',cursor:'pointer'}}>{this.props.subject}</a>
                 </div>
+                {this.props.showTrendingIcon &&
+                    <div style={{position:'absolute',bottom:0,left:8}}>
+                        <img src="img/flame-icon.png" style={{width:50,height:'auto'}} />
+                    </div>
+                }
             </div>
         );
     }

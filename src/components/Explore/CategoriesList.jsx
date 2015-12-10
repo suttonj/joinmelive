@@ -25,8 +25,7 @@ export default class CategoriesList extends Component {
     }
 
     render() {
-        return (
-            
+        return (            
             <div style={{position:'relative'}}
                 onMouseOver={ () => this.setState({ isOpen: true }) }
                 onMouseOut={ () => this.setState({ isOpen: false }) }>

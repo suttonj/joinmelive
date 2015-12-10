@@ -52,11 +52,9 @@ export class ExplorePage extends Component {
                     selectCategory={this.props.selectCategory} />
 
                 <div style={styles.discussionsContainer}>
-
                     <DiscussionsList 
                         discussions={filteredDiscussions}
                         joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
-                
                 </div> 
 
                 <Modal
@@ -107,8 +105,10 @@ const styles = {
         content:{
             top: `calc(50% - 0.5 * 242px)`,
             left: 'calc(50% - 0.5 * 342px)',
-            width:300,
+            width:350,
             height:200,
+            backgroundColor:'#444444',
+            borderRadius:8,
         },
     }, 
 };
