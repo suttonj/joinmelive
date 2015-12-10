@@ -117,6 +117,7 @@ export function startDiscussion({ subject, categoryId, tagNames: tags }) {
 }
 
 export function joinDiscussion(viewerCode) {
+    window.location = '/#/explore';
     return { type: 'JOIN_DISCUSSION', viewerCode };
 }
 
