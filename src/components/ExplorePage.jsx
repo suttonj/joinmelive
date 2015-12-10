@@ -40,6 +40,7 @@ export class ExplorePage extends Component {
             <div style={styles.container}>
                 
                 <Header
+                    query={discussionFilters.query}
                     search={this.props.search}
                     tags={this.props.tags}
                     updateSelectedTags={this.props.updateSelectedTags}

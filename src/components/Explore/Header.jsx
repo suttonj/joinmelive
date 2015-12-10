@@ -19,6 +19,7 @@ export default class Header extends Component {
 
     componentDidMount() {
         this.refs.searchInput.focus();
+        this.expandInput(this.refs.searchInput.value);
     }
 
     expandInput(text) {
@@ -34,7 +35,13 @@ export default class Header extends Component {
         document.body.appendChild(span);
         const width = span.offsetWidth;
 
-        this.refs.searchInput.style.width = width + 'px';
+        if (!text || width < 42) {
+            this.refs.searchInput.style.width = '42px';
+            return;
+        } else {
+            this.refs.searchInput.style.width = width + 'px';
+        }
+
         document.body.removeChild(span);
     }
 
@@ -44,7 +51,7 @@ export default class Header extends Component {
                 <div style={styles.innerContainer}>
 
                     <div style={styles.logoContainer} onClick={ () => window.location = '/#'}>
-                        <img src='img/jm-logo.svg' style={styles.logo} />
+                        <img src='img/jmlive-logo.svg' style={styles.logo} />
                     </div>
 
                     <div style={{margin:'auto'}}>
@@ -54,6 +61,7 @@ export default class Header extends Component {
                             ref="searchInput"
                             placeholder="Search"
                             style={{backgroundColor:'transparent', border:'none',borderBottom:'2px solid #9bd000',outlineWidth:0,color:'white',padding:'3px 20px',width:42}}
+                            defaultValue={this.props.query}
                             onKeyUp={ e => this.expandInput(e.target.value) } />
                         &nbsp;.
                     </div>
@@ -101,8 +109,9 @@ const styles = {
         cursor:'pointer',
     },
     logo: {
-        width:50,
-        height:50,
+        marginTop: 8,
+        width:75,
+        height:75,
     },
     hamburgerContainer: {
         height: '100%',
