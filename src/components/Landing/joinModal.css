@@ -1,0 +1,56 @@
+.discussionItem {
+    position: relative;
+    padding: 10px 20px;
+    margin: 5px 0;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 4px;
+    background-color: #ccc;
+}
+
+.discussionItem:hover {
+    cursor: pointer;
+    background-color: #aaa;
+}
+
+.discussionItem:before {
+    content: '';
+    position: absolute;
+    width: 100%; height:100%;
+    top: 0; right: 0;
+    background: rgba(155,208,0,0.8);
+    border-radius: 4px;
+    color: #424143;
+    opacity: 0;
+    transition: all .5s;
+    -webkit-transition: all .5s;
+}
+
+.discussionItem:after {
+    content: 'Join';
+    position: absolute;
+    width: 45px; height:25px;
+    top: 35%; right: 45%;
+    color: #eee;
+    font-size: 24px;
+    opacity: 0;
+    transition: all .5s;
+    -webkit-transition: all .5s;
+}
+
+.discussionItem:hover:after, .discussionItem:hover:before{
+    opacity: 1;
+}
+
+.discussionItem img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: -9px;
+}
+
+.noDiscussions {
+    font-size: 16px;
+    margin: 0 auto;
+}

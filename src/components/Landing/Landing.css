@@ -109,3 +109,7 @@ button.joinButton hover{
     border-radius: 4px;
     background-color: #F88300;
 }
+
+.startButton:hover {
+    background-color: #F88900;
+}

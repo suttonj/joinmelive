@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import Discussion from './Discussion';
+import './joinModal.css';
 
 const styles = {
     container: {
@@ -11,44 +12,51 @@ const styles = {
         display:'flex',
         flexWrap:'wrap',
         flexDirection: 'column',
-        padding:20
-    },
-    discussionItem: {
-        padding: '10px 20px',
-        margin: '5px 0',
-        height: 100,
-        display: 'flex',
-        flexDirection: 'row',
-        border: '2px solid #ddd',
-        borderRadius: '4px',
-        backgroundColor: "#eee"
-    },
-    noDiscussions: {
-        fontSize:14,
-        margin: '0 auto'
+        padding:20,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        marginBottom: 10
     }
 };
 
 export default class DiscussionList extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = { 
+            ...this.props
+        };
+
+        this.startNewDiscussion = this.startNewDiscussion.bind(this);
+    }
+
+    startNewDiscussion() {
+        let subject = this.props.query;
+        let tags = [ this.props.query ];
+        this.props.startDiscussion({ subject, tags });
+    }
+
     render() {
         let discussions = this.props.discussions.map(disc => 
             <Discussion
                 key={disc.id}
                 {...disc}
-                style={styles.discussionItem}
+                style={{}}
                 join={ () => this.props.joinDiscussion(disc.viewerCode) } />
         );
         if (!discussions.length) {
-            discussions = ( <div style={styles.noDiscussions}>No one is talking about this right now. Be a leader!</div> );
+            discussions = ( <div className="noDiscussions">No one is talking about this right now. Be a conversation starter!</div> );
         }
 
         return (
             <div style={styles.container}>
                 <div style={styles.discussionsContainer}>
                     {discussions}
-                    <div style={{margin: '0 auto',padding:10}}>
-                        <button className="startButton" onClick={this.props.startDiscussion}>Start your own discussion</button> 
-                    </div>
+                </div>
+
+                <div style={{margin: '0 auto' }}>
+                    <button className="startButton" onClick={this.startNewDiscussion}>Start a discussion</button> 
                 </div>
             </div>
         );
@@ -62,6 +70,5 @@ DiscussionList.propTypes = {
         viewerCode: PropTypes.number.isRequired,
         previewImageUrl: PropTypes.string.isRequired,
     })).isRequired,
-    startDiscussion: PropTypes.func.isRequired,
     joinDiscussion: PropTypes.func.isRequired,
 };

@@ -47,8 +47,10 @@ const styles = {
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            width:600,
-            height:400
+            width:420,
+            height:360,
+            backgroundColor: '#555',
+            color: '#eee'
         }
     }
 
@@ -73,7 +75,7 @@ export default class LandingPage extends Component {
 
     showDiscussions(query) {
         query = (typeof query === 'string' ? query : query.name);
-        this.props.search(query.name);
+        this.props.search(query);
         this.setState({ isModalOpen: true });
     }
 
