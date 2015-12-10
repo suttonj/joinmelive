@@ -117,6 +117,10 @@ export function startDiscussion({ subject, categoryId, tagNames: tags }) {
 }
 
 export function joinDiscussion(viewerCode) {
-    window.open('https://jmmaster.dev.3amlabs.net/' + viewerCode + '?suppressSticky=true');
+    window.location = '/#/explore';
     return { type: 'JOIN_DISCUSSION', viewerCode };
+}
+
+export function leaveDiscussion() {
+    return { type: 'LEAVE_DISCUSSION' };
 }

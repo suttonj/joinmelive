@@ -23,18 +23,25 @@ export default class ActiveFilters extends Component {
 
     render() {
         return (
-            <div style={{width:1000,margin:'auto',marginTop:25,marginBottom:0,display:'flex',justifyContent:'space-between'}}>
-                <div>
-                    <span>
-                        {this.props.discussionCount} active discussions{this.getQuery()}
-                    </span>
+            <div>
+            {this.props.activeViewerCode ?
+                <div style={{width:1000,margin:'auto',marginTop:25,marginBottom:0}}>
+                    <span onClick={this.props.leaveDiscussion} style={{color:'#f88300',fontWeight:'bold',cursor:'pointer'}}>&lt; Leave discussion</span>
+                </div> :
+                <div style={{width:1000,margin:'auto',marginTop:25,marginBottom:0,display:'flex',justifyContent:'space-between'}}>
+                    <div>
+                        <span>
+                            {this.props.discussionCount} active discussions{this.getQuery()}
+                        </span>
+                    </div>
+                    <div>
+                        <CategoriesList
+                            selectedCategoryId={this.props.selectedCategoryId}
+                            categories={this.props.categories}
+                            selectCategory={this.props.selectCategory} />
+                    </div>
                 </div>
-                <div>
-                    <CategoriesList
-                        selectedCategoryId={this.props.selectedCategoryId}
-                        categories={this.props.categories}
-                        selectCategory={this.props.selectCategory} />
-                </div>
+            }
             </div>
         );
     }

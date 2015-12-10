@@ -24,6 +24,7 @@ const filtersInitialState = {
     categoryId: null,
     childCategoryIds: [],
     tagIds: [],
+    activeViewerCode: null,
 };
 function discussions(state={all:[], filtered:[], filters: filtersInitialState}, action) {
     switch (action.type) {
@@ -45,6 +46,12 @@ function discussions(state={all:[], filtered:[], filters: filtersInitialState}, 
             const filters = { ...state.filters, tagIds: action.tagIds };
             const filtered = filterDiscussions(state.all, filters);
             return { ...state, filtered, filters };
+        }
+        case 'JOIN_DISCUSSION': {
+            return { ...state, activeViewerCode: action.viewerCode };
+        }
+        case 'LEAVE_DISCUSSION': {
+            return { ...state, activeViewerCode: null };
         }
         default:
             return state;

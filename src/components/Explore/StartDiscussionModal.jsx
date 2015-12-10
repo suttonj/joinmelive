@@ -32,8 +32,8 @@ export default class StartDiscussionModal extends Component {
 
 
 
-        if (!text || width < 42) {
-            this.refs.searchInput.style.width = '42px';
+        if (!text || width < 45) {
+            this.refs.searchInput.style.width = '45px';
             return;
         } else {
             this.refs.searchInput.style.width = width + 'px';
