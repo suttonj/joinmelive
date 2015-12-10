@@ -25,6 +25,12 @@ export class ExplorePage extends Component {
         this.props.getTags();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.ajax.startDiscussion && !nextProps.ajax.startDiscussion) {
+            this.setState({ isModalOpen: false });
+        }
+    }
+
     render() {
         const { filtered: filteredDiscussions, filters: discussionFilters } = this.props.discussions;
         const selectedCategoryName = discussionFilters.categoryId ?
@@ -68,8 +74,9 @@ export class ExplorePage extends Component {
                         tagNames={discussionFilters.tagIds.map(id => this.props.tags.filter(tag => tag.id === id)[0].name)}
                         categories={this.props.categories}
                         tags={this.props.tags}
-                        start={ params => { this.props.startDiscussion(params); this.setState({ isModalOpen: false }) } }
-                        close={ () => this.setState({ isModalOpen: false }) } />
+                        start={ params => this.props.startDiscussion(params) }
+                        close={ () => this.setState({ isModalOpen: false }) }
+                        isSaving={this.props.ajax.startDiscussion} />
                 }
                 </Modal>
 
