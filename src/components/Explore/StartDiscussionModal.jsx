@@ -19,6 +19,7 @@ export default class StartDiscussionModal extends Component {
 
     componentDidMount() {
         this.refs.searchInput.focus();
+        this.expandInput(this.refs.searchInput.value);
     }
 
     expandInput(text) {
