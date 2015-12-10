@@ -6,9 +6,6 @@ export default class Search extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			suggestions: props.suggestions
-		};
 
 		this.getSuggestions = this.getSuggestions.bind(this);
 		this.renderSuggestion = this.renderSuggestion.bind(this);
@@ -16,7 +13,6 @@ export default class Search extends Component {
 	}
 
 	componentDidUpdate() {
-		this.setState({ suggestions: this.props.suggestions });
 		this.fuse = new Fuse(this.props.suggestions, { keys: ["name"] });
 	}
 
@@ -60,7 +56,14 @@ export default class Search extends Component {
 	render() {
 		const inputAttributes = {
 	      	id: 'trends-renderer',
-	      	placeholder: 'What do you want to discuss?'
+	      	placeholder: 'What do you want to discuss?',
+			onKeyPress: (e, el) => { 
+				if (e.which == 13 || e.keyCode == 13) {
+					this.props.showDiscussions(e.target.value);
+					console.log(`Searching discussions about ${e.target.value}`);
+					return false;
+				}
+			}
 	    };
 	    return (
 	    	<div className="search">
@@ -69,7 +72,7 @@ export default class Search extends Component {
 			      	suggestionRenderer={this.renderSuggestion}
 			      	suggestionValue={this.getSuggestionValue}
 			      	onSuggestionSelected={this.onSuggestionSelected}
-                    inputAttributes={this.inputAttributes}
+                    inputAttributes={inputAttributes}
                     scrollBar={true} />
 			</div>
 	    );

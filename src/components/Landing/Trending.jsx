@@ -13,12 +13,13 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         width: 240,
-    	alignItems: 'flex-start'
+    	alignItems: 'flex-start',
+    	margin:10
     },
     label: {
     	fontSize: 16,
     	fontWeight: 'bold',
-    	padding: 8,
+    	paddingBottom: 8,
     	margin:10
     },
     trendingTopics: {
@@ -56,10 +57,6 @@ export default class Trending extends Component {
 	    let self = this;
 	}
 
-	componentDidUpdate() {
-		this.setState({trends: this.props.trends});
-	}
-
 	render () {
 		var trendList = this.props.trends.map((trend, index) => {
 	        return (
@@ -75,7 +72,7 @@ export default class Trending extends Component {
 			    </div>
 			    <div style={styles.innerContainer}>
 	        		<span style={styles.label}>Latest activity</span>
-			    	<TrendTweets />
+			    	<TrendTweets joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) }/>
 			    </div>
 		    </div>
 	    );

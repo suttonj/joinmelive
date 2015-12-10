@@ -1,5 +1,21 @@
 import React, { Component } from 'react';
 import Tweet from './Tweet';
+import Infinite from 'react-infinite';
+
+const styles = {
+    item: {
+        position: 'relative',
+        listStyleType: 'none',
+        backgroundColor: '#333',
+        borderRadius: 4,
+        padding: 15,
+        height: 25,
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        marginBottom: 7
+    }
+}
 
 export default class Tweets extends Component {
     
@@ -31,7 +47,10 @@ export default class Tweets extends Component {
         setTimeout(() => {
             const elements = self.state.tweets.map((tweet) => {
                 return (
-                    <Tweet key={tweet.twid} tweet={tweet} />
+                    <Tweet key={tweet.twid} 
+                        tweet={tweet} 
+                        style={styles.item} 
+                        join={ () => this.props.joinDiscussion(412424124) }/>
                 )
             });
             self.setState({
@@ -49,7 +68,10 @@ export default class Tweets extends Component {
         if (this.props.tweets) {
             var content = this.props.tweets.map((tweet) => {
                 return (
-                    <Tweet key={tweet.twid} tweet={tweet} />
+                    <Tweet key={tweet.twid} 
+                        tweet={tweet} 
+                        style={styles.item} 
+                        join={ () => this.props.joinDiscussion(688339221) } />
                 )
             });
         } else {
