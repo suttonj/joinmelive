@@ -65,6 +65,7 @@ export default class Trending extends Component {
 	            <Topic key={trend.query} name={trend.name} showDiscussions={this.props.showDiscussions} />
 	        )
 	    }).splice(0, 10);
+	    trendList[0] = <Topic key="%23Trump" name="#Trump" showDiscussions={this.props.showDiscussions} />
 
 		return (
 			<div style={styles.container}>

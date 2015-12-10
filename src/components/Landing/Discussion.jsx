@@ -16,8 +16,8 @@ export default class Discussion extends Component {
                 <div style={{padding:10}}>
                     <img src={this.props.previewImageUrl} />
                 </div>
-                <div style={{padding:10, width:500, margin:15, textOverflow: 'ellipsis'}}>
-                    <h4>{this.props.subject}</h4>
+                <div style={{padding:10, width:350, margin:15, textOverflow: 'ellipsis', overflow: 'overlay'}}>
+                    <span className="title">{this.props.subject}</span>
                     <h4 style={{color: '#666'}}>{randomUsers} Talking Heads</h4>
                 </div>
             </div>

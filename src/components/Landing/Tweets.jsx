@@ -50,6 +50,7 @@ export default class Tweets extends Component {
                     <Tweet key={tweet.twid} 
                         tweet={tweet}
                         style={styles.item} 
+                        trends={this.props.trends}
                         join={ () => this.props.joinDiscussion(412424124) }/>
                 )
             });
@@ -71,6 +72,7 @@ export default class Tweets extends Component {
                     <Tweet key={tweet.twid} 
                         tweet={tweet} 
                         style={styles.item} 
+                        trends={this.props.trends}
                         join={ () => this.props.joinDiscussion(688339221) } />
                 )
             });

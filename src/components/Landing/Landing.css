@@ -167,6 +167,7 @@ button.joinButton hover{
     line-height: 0em;
     border-radius: 4px;
     border: none;
+    cursor: pointer;
 }
 
 .exploreButton:hover {
