@@ -50,9 +50,19 @@ export default class Header extends Component {
                             size="5" />
                         &nbsp;.
                     </div>
-                
+
                     <div>
-                        Start your own <button style={styles.button} onClick={this.props.startDiscussion}>Discussion</button>
+                        <button style={{
+                            color: '#424143',
+                            fontWeight: 'bold',
+                            padding: '10px 40px',
+                            fontSize: '14px',
+                            cursor: 'pointer',
+                            border: 'none',
+                            borderRadius: '4px',
+                            backgroundColor: '#F88300',
+                        }} 
+                        onClick={this.props.startDiscussion}>Start a discussion</button> 
                     </div>
                 </div>
             </div>
@@ -65,7 +75,7 @@ const styles = {
         position:'relative',
         backgroundColor:'#2b2b2b',
         boxShadow:'0 0 11px 1px #111',
-        height: 50,
+        height: 70,
     },
     innerContainer: {
         maxWidth: 1000,

@@ -39,7 +39,16 @@ export default class StartDiscussionModal extends Component {
                             </div>
                         </div>
                         <div style={{display:'flex',flexDirection:'row-reverse',justifyContent:'space-between',alignItems:'center'}}>
-                            <button onClick={ () => this.props.start(this.state) } style={styles.button}>Start</button>
+                            <button onClick={ () => this.props.start(this.state) } style={{
+                            color: '#424143',
+                            fontWeight: 'bold',
+                            padding: '10px 40px',
+                            fontSize: '14px',
+                            cursor: 'pointer',
+                            border: 'none',
+                            borderRadius: '4px',
+                            backgroundColor: '#F88300',
+                        }}>Start</button>
                             <a onClick={this.props.close} style={{textDecoration:'underline',color:'#9bd000',cursor:'pointer'}}>Cancel</a>
                         </div>
                 </div> 
