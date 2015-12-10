@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import Modal from 'react-modal';
 
 import Header from './Explore/Header';
-import CategoriesList from './Explore/CategoriesList';
 import DiscussionsList from './Explore/DiscussionsList';
 import StartDiscussionModal from './Explore/StartDiscussionModal';
 import LoadingSpinner from './Explore/LoadingSpinner';
+import ActiveFilters from './Explore/ActiveFilters';
 
 import * as actionCreators from '../actions';
 
@@ -25,6 +25,12 @@ export class ExplorePage extends Component {
         this.props.getTags();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.ajax.startDiscussion && !nextProps.ajax.startDiscussion) {
+            this.setState({ isModalOpen: false });
+        }
+    }
+
     render() {
         const { filtered: filteredDiscussions, filters: discussionFilters } = this.props.discussions;
         const selectedCategoryName = discussionFilters.categoryId ?
@@ -41,19 +47,20 @@ export class ExplorePage extends Component {
                     categories={this.props.categories}
                     selectedCategoryId={discussionFilters.categoryId}
                     selectCategory={this.props.selectCategory} 
+                    startDiscussion={ () => this.setState({ isModalOpen: true }) }
                 />
 
-                <div style={{margin:'auto'}}>
-                    Let's talk about&nbsp;
-                    <span contentEditable="true" style={{backgroundColor:'transparent', border:'none',borderBottom:'2px solid #9bd000',outlineWidth:0,color:'white',padding:'3px 20px'}} />
-                    <button onClick={ () => this.setState({ isModalOpen: true }) }>Discuss</button>
-                </div>
+                <ActiveFilters
+                    discussionCount={filteredDiscussions.length}
+                    query={discussionFilters.query}
+                    categories={this.props.categories}
+                    selectedCategoryId={discussionFilters.categoryId}
+                    selectCategory={this.props.selectCategory} />
 
                 <div style={styles.discussionsContainer}>
                 {this.props.ajax.getDiscussions ?
                     <LoadingSpinner /> :
                     <DiscussionsList 
-                        categoryName={selectedCategoryName}
                         discussions={filteredDiscussions}
                         joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
                 }
@@ -66,18 +73,20 @@ export class ExplorePage extends Component {
                 {this.state.isModalOpen && 
                     <StartDiscussionModal
                         { ...discussionFilters }
+                        subject={discussionFilters.query}
                         tagNames={discussionFilters.tagIds.map(id => this.props.tags.filter(tag => tag.id === id)[0].name)}
                         categories={this.props.categories}
                         tags={this.props.tags}
-                        start={ params => { this.props.startDiscussion(params); this.setState({ isModalOpen: false }) } }
-                        close={ () => this.setState({ isModalOpen: false }) } />
+                        start={ params => this.props.startDiscussion(params) }
+                        close={ () => this.setState({ isModalOpen: false }) }
+                        isSaving={this.props.ajax.startDiscussion} />
                 }
                 </Modal>
 
             </div>
         );
-    }
-}
+    
+}}
 
 export default connect(
     state => state,
@@ -88,9 +97,9 @@ const styles = {
     container: {
         display: 'flex',
         flexDirection:'column',
-        height:'100%',
         backgroundColor:'#444444',
         color:'white',
+        minHeight: '100%'
     },
     discussionsContainer: {
         position:'relative',
@@ -101,20 +110,15 @@ const styles = {
         backgroundColor:'#2b2b2b',
         borderRadius:5,
         boxShadow:'0 0 11px 1px #111',
-        overflow: 'scroll',
     },
     modal: {
         content:{
-            width:500,
-            height:500,
+            top: `calc(50% - 0.5 * 242px)`,
+            left: 'calc(50% - 0.5 * 342px)',
+            width:350,
+            height:200,
+            backgroundColor:'#444444',
+            borderRadius:8,
         },
     }, 
-    button: {
-        backgroundColor:'#FC8E26',
-        color:'white',
-        border:'none',
-        borderRadius:8,
-        padding:'12px 30px',
-        cursor:'pointer',
-    },
 };

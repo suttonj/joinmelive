@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
 
 import CategoriesList from './CategoriesList';
+import LoadingSpinner from './LoadingSpinner';
 
 export default class StartDiscussionModal extends Component {
     constructor(props) {
@@ -10,36 +11,55 @@ export default class StartDiscussionModal extends Component {
         this.state = { 
             ...this.props,
             subject: '',
+            isButtonHovered: false,
         };
+    }
+
+    componentDidMount() {
+        this.refs.searchInput.focus();
     }
 
     render() {
         return (
-            <div>
-                <h1>Start you own discussion:</h1>
-                <input
-                    type="text"
-                    placeholder="Subject"
-                    onKeyUp={ e => this.setState({ subject: e.target.value }) } />
-                <label>
-                    Categories:
-                    <CategoriesList
-                        categories={this.props.categories}
-                        selectedCategoryId={this.state.categoryId}
-                        selectCategory={ categoryId => this.setState({ categoryId }) } />
-                </label>
-                <label>
-                    Tags:            
-                    <Select
-                        multi={true}
-                        value={this.props.tagNames.join(',')}
-                        delimiter=","
-                        options={this.props.tags.map(tag => ({ value: tag.name, label: tag.name }))} // use name as key
-                        onChange={ tagNames => this.setState({ tagNames }) }
-                        allowCreate={true} />
-                </label>
-                <button onClick={ () => this.props.start(this.state) }>Start</button>
-                <button onClick={this.props.close}>Cancel</button>
+            <div style={{height:'100%'}}>
+            {this.props.isSaving ?
+                <LoadingSpinner /> :
+                <div style={{position:'relative',height:'100%',display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
+                        <div style={{display:'flex',flexGrow:1,alignItems:'flex-start'}}>
+                            <div style={{margin:'auto',color:'white'}}>
+                                Let's talk about&nbsp;
+                                <input
+                                    type="text"
+                                    ref="searchInput"
+                                    placeholder="Subject"
+                                    style={{backgroundColor:'transparent', border:'none',borderBottom:'2px solid #9bd000',outlineWidth:0,color:'white',padding:'3px 20px'}}
+                                    onKeyUp={ e => this.setState({ subject: e.target.value }) }
+                                    size="6"
+                                    defaultValue={this.props.subject} />
+                                &nbsp;.
+                            </div>
+                        </div>
+                        <div style={{display:'flex',flexDirection:'row-reverse',justifyContent:'space-between',alignItems:'center'}}>
+                            <button 
+                            onClick={ () => this.props.start(this.state) } 
+                            onMouseOver={ () => this.setState({ isButtonHovered: true }) }
+                            onMouseOut={ () => this.setState({ isButtonHovered: false }) }
+                            style={{
+                            color: '#424143',
+                            fontWeight: 'bold',
+                            padding: '10px 40px',
+                            fontSize: '14px',
+                            cursor: 'pointer',
+                            border: 'none',
+                            borderRadius: '4px',
+                            backgroundColor: '#F88300',
+                            outlineWidth: 0,
+                            boxShadow: this.state.isButtonHovered && '0 0 11px 1px #111',
+                        }}>Start</button>
+                            <a onClick={this.props.close} style={{textDecoration:'underline',color:'#9bd000',cursor:'pointer'}}>Cancel</a>
+                        </div>
+                </div> 
+            }
             </div>
         );
     }
@@ -59,3 +79,16 @@ StartDiscussionModal.propTypes = {
     start: PropTypes.func.isRequired,
     close: PropTypes.func.isRequired,
 };
+
+const styles = {
+
+    button: {
+        backgroundColor:'#FC8E26',
+        color:'white',
+        border:'none',
+        borderRadius:8,
+        padding:'12px 30px',
+        cursor:'pointer',
+        outlineWidth: 0,
+    },
+}

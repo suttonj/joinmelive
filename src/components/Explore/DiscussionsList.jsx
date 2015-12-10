@@ -3,17 +3,29 @@ import React, { Component, PropTypes } from 'react';
 import Discussion from './Discussion';
 
 export default class DiscussionsList extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.shouldShowTrendingIcon = this.shouldShowTrendingIcon.bind(this);
+    }
+
+    shouldShowTrendingIcon(i) {
+        const numOfDiscussions = this.props.discussions.length;
+        return  numOfDiscussions > 10 ?
+             (i + 1) < numOfDiscussions * 0.10 : // show for 10%
+             i === 0;
+    }
+
     render() {
         return (
             <div style={{padding:10}}>
-                <div>
-                    <div>{this.props.categoryName}</div>
-                </div>
-                <div style={{display:'flex',flexWrap:'wrap',justifyContent:'flex-start'}}>
-                {this.props.discussions.map(disc => 
+                <div style={{display:'flex',flexWrap:'wrap',justifyContent:'flex-start',alignContent:'space-between'}}>
+                {this.props.discussions.map((disc, i) => 
                     <Discussion
                         key={disc.id}
                         {...disc}
+                        showTrendingIcon={this.shouldShowTrendingIcon(i)}
                         join={ () => this.props.joinDiscussion(disc.viewerCode) } />
                 )}
                 </div>

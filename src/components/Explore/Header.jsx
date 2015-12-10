@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import Select from 'react-select';
 
-import Hamburger from './Hamburger';
 import CategoriesList from './CategoriesList';
-import Search from './Search';
 
 export default class Header extends Component {
     constructor(props) {
@@ -12,60 +11,83 @@ export default class Header extends Component {
             isSearchHovered: false,
             isHamburgerHovered: false,
             isSearchShown: false,
+            isButtonHovered: false,
         };
+
+        this.expandInput = this.expandInput.bind(this);
+    }
+
+    componentDidMount() {
+        this.refs.searchInput.focus();
+    }
+
+    expandInput(text) {
+        this.props.search(text);
+
+        if (!text) {
+            this.refs.searchInput.style.width = '42px';
+            return;
+        }
+
+        const span = document.createElement('span');
+        span.innerHTML = text;
+        document.body.appendChild(span);
+        const width = span.offsetWidth;
+
+        this.refs.searchInput.style.width = width + 'px';
+        document.body.removeChild(span);
     }
 
     render() {
         return (
             <div style={styles.container}>
                 <div style={styles.innerContainer}>
-                    <div style={styles.logoContainer}>
+
+                    <div style={styles.logoContainer} onClick={ () => window.location = '/#'}>
                         <img src='img/jm-logo.svg' style={styles.logo} />
                     </div>
-                    <div
-                        style={{ ...styles.searchContainer, backgroundColor: this.state.isSearchHovered && '#888888' }}
-                        onMouseOver={ () => this.setState({ isSearchHovered: true }) }
-                        onMouseOut={ () => this.setState({ isSearchHovered: false }) }
-                        onClick={ () => this.setState({ isSearchShown: true }) }>
-                    {this.state.isSearchShown ?
-                        <Search {...this.props } onBlur={ () => this.setState({ isSearchShown: false })} /> :
-                        <div style={styles.searchPlaceholder}>Search<div style={styles.searchIcon} /></div>
-                    }
+
+                    <div style={{margin:'auto'}}>
+                        Let's talk about&nbsp;
+                        <input
+                            type="text"
+                            ref="searchInput"
+                            placeholder="Search"
+                            style={{backgroundColor:'transparent', border:'none',borderBottom:'2px solid #9bd000',outlineWidth:0,color:'white',padding:'3px 20px',width:42}}
+                            onKeyUp={ e => this.expandInput(e.target.value) } />
+                        &nbsp;.
                     </div>
-                    <div
-                        style={{ ...styles.hamburgerContainer, backgroundColor: this.state.isHamburgerHovered && '#888888' }}
-                        onMouseOver={ () => this.setState({ isHamburgerHovered: true }) }
-                        onMouseOut={ () => this.setState({ isHamburgerHovered: false }) }>
-                        <Hamburger>
-                            <CategoriesList 
-                                categories={this.props.categories}
-                                selectedCategoryId={this.props.selectedCategoryId}
-                                selectCategory={this.props.selectCategory} />
-                        </Hamburger>
-                    </div>                        
+
+                    <div>
+                        <button 
+                            onMouseOver={ () => this.setState({ isButtonHovered: true }) }
+                            onMouseOut={ () => this.setState({ isButtonHovered: false }) }
+                            style={{
+                            color: '#424143',
+                            fontWeight: 'bold',
+                            padding: '10px 40px',
+                            fontSize: '14px',
+                            cursor: 'pointer',
+                            border: 'none',
+                            borderRadius: '4px',
+                            backgroundColor: '#F88300',
+                            outlineWidth: 0,
+                            boxShadow: this.state.isButtonHovered && '0 0 11px 1px #111',
+                        }} 
+                        onClick={this.props.startDiscussion}>Start a discussion</button> 
+                    </div>
                 </div>
             </div>
         );
     }
 }
 
-Header.propTypes = {
-    search: PropTypes.func.isRequired,
-    selectedCategoryId: PropTypes.number,
-    selectedTagIds: PropTypes.arrayOf(PropTypes.number.isRequired),
-    tags: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-    })),
-    updateSelectedTags: PropTypes.func.isRequired,
-};
-
 const styles = {
     container: {
         position:'relative',
         backgroundColor:'#2b2b2b',
         boxShadow:'0 0 11px 1px #111',
-        height: 50,
+        height: 70,
     },
     innerContainer: {
         maxWidth: 1000,
@@ -76,7 +98,7 @@ const styles = {
         height: '100%',
     },
     logoContainer: {
-
+        cursor:'pointer',
     },
     logo: {
         width:50,
@@ -105,5 +127,14 @@ const styles = {
         top: -7,
         right: 12,
         background: 'url(//s.imgur.com/images/site-sprite.png?1430420391) no-repeat scroll -495px -249px',
+    },
+    button: {
+        backgroundColor:'#FC8E26',
+        color:'white',
+        border:'none',
+        borderRadius:8,
+        padding:'12px 30px',
+        cursor:'pointer',
+        outlineWidth: 0,
     },
 };
