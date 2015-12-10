@@ -5,12 +5,14 @@ export default class Discussion extends Component {
         return (
             <div
                 id={this.props.id}
-                style={{width:200,padding:'0 20px'}}>
+                style={{width:200,padding:'10px 20px'}}>
                 <img
                     src={this.props.previewImageUrl}
                     style={{width:200,height:200,borderRadius:'50%',cursor:'pointer'}}
                     onClick={this.props.join} />
-                <a onClick={this.props.join} style={{ color: 'white',cursor:'pointer'}}>{this.props.subject}</a>
+                <div style={{display:'flex',justifyContent:'center'}}>
+                    <a onClick={this.props.join} style={{ color: 'white',cursor:'pointer'}}>{this.props.subject}</a>
+                </div>
             </div>
         );
     }

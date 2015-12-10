@@ -6,7 +6,7 @@ export default class DiscussionsList extends Component {
     render() {
         return (
             <div style={{padding:10}}>
-                <div style={{display:'flex',flexWrap:'wrap',justifyContent:'flex-start'}}>
+                <div style={{display:'flex',flexWrap:'wrap',justifyContent:'flex-start',alignContent:'space-between'}}>
                 {this.props.discussions.map(disc => 
                     <Discussion
                         key={disc.id}
