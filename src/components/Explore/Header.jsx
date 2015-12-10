@@ -34,7 +34,13 @@ export default class Header extends Component {
         document.body.appendChild(span);
         const width = span.offsetWidth;
 
-        this.refs.searchInput.style.width = width + 'px';
+        if (!text || width < 42) {
+            this.refs.searchInput.style.width = '42px';
+            return;
+        } else {
+            this.refs.searchInput.style.width = width + 'px';
+        }
+
         document.body.removeChild(span);
     }
 

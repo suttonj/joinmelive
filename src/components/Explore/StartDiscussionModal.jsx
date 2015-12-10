@@ -13,10 +13,32 @@ export default class StartDiscussionModal extends Component {
             subject: '',
             isButtonHovered: false,
         };
+
+        this.expandInput = this.expandInput.bind(this);
     }
 
     componentDidMount() {
         this.refs.searchInput.focus();
+    }
+
+    expandInput(text) {
+        this.setState({ subject: text});
+
+        const span = document.createElement('span');
+        span.innerHTML = text;
+        document.body.appendChild(span);
+        const width = span.offsetWidth;
+
+
+
+        if (!text || width < 42) {
+            this.refs.searchInput.style.width = '42px';
+            return;
+        } else {
+            this.refs.searchInput.style.width = width + 'px';
+        }
+
+        document.body.removeChild(span);
     }
 
     render() {
@@ -33,7 +55,7 @@ export default class StartDiscussionModal extends Component {
                                     ref="searchInput"
                                     placeholder="Subject"
                                     style={{backgroundColor:'transparent', border:'none',borderBottom:'2px solid #9bd000',outlineWidth:0,color:'white',padding:'3px 20px'}}
-                                    onKeyUp={ e => this.setState({ subject: e.target.value }) }
+                                    onKeyUp={ e =>this.expandInput(e.target.value) }
                                     size="6"
                                     defaultValue={this.props.subject} />
                                 &nbsp;.
