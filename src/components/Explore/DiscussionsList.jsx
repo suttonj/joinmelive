@@ -17,18 +17,28 @@ export default class DiscussionsList extends Component {
              i === 0;
     }
 
+    join(viewerCode) {
+        this.setState({
+            isViewerOpen: true,
+            viewerCode,
+        });
+    }
+
     render() {
         return (
-            <div style={{padding:10}}>
-                <div style={{display:'flex',flexWrap:'wrap',justifyContent:'flex-start',alignContent:'space-between'}}>
-                {this.props.discussions.map((disc, i) => 
-                    <Discussion
-                        key={disc.id}
-                        {...disc}
-                        showTrendingIcon={this.shouldShowTrendingIcon(i)}
-                        join={ () => this.props.joinDiscussion(disc.viewerCode) } />
-                )}
-                </div>
+            <div style={{padding:this.props.activeViewerCode ? 0 : 10}}>
+                {this.props.activeViewerCode ?
+                    <iframe src={`https://jmmaster.dev.3amlabs.net/${this.props.activeViewerCode}?suppressSticky=true`} width="100%" height="700px" frameBorder="0" /> :
+                    <div style={{display:'flex',flexWrap:'wrap',justifyContent:'flex-start',alignContent:'space-between'}}>
+                        {this.props.discussions.map((disc, i) => 
+                            <Discussion
+                                key={disc.id}
+                                {...disc}
+                                showTrendingIcon={this.shouldShowTrendingIcon(i)}
+                                join={ () => this.props.joinDiscussion(disc.viewerCode) } />
+                        )}
+                    </div>
+                }
             </div>
         );
     }

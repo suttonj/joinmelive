@@ -52,6 +52,8 @@ export class ExplorePage extends Component {
                 />
 
                 <ActiveFilters
+                    leaveDiscussion={this.props.leaveDiscussion}
+                    activeViewerCode={this.props.discussions.activeViewerCode}
                     discussionCount={filteredDiscussions.length}
                     query={discussionFilters.query}
                     categories={this.props.categories}
@@ -62,6 +64,7 @@ export class ExplorePage extends Component {
                 {this.props.ajax.getDiscussions ?
                     <LoadingSpinner /> :
                     <DiscussionsList 
+                        activeViewerCode={this.props.discussions.activeViewerCode}
                         discussions={filteredDiscussions}
                         joinDiscussion={ viewerCode => this.props.joinDiscussion(viewerCode) } />
                 }
