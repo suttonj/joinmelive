@@ -20,7 +20,7 @@ export default class Discussion extends Component {
                     onClick={this.props.join}
                     onMouseOver={ () => this.setState({ isHovered: true }) }
                     onMouseOut={ () => this.setState({ isHovered: false }) } />
-                <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                <div style={{display:'flex',justifyContent:'center',alignItems:'center',textAlign:'center'}}>
                     <a
                         onClick={this.props.join}
                         style={{ color: 'white',cursor:'pointer',color:this.state.isHovered ? '#9bd000' : 'white',textDecoration:'none'}}
@@ -32,7 +32,7 @@ export default class Discussion extends Component {
 
                 </div>
                 {this.props.showTrendingIcon &&
-                    <div style={{position:'absolute',bottom:8,left:8}}>
+                    <div style={{position:'absolute',bottom:50,left:10}}>
                         <img src="img/flame-icon.png" style={{width:50,height:'auto'}} />
                     </div>
                 }
